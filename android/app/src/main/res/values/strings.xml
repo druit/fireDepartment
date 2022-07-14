@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">fire-department</string>
+    <string name="title_activity_main">fire-department</string>
+    <string name="package_name">com.firedepartment.app</string>
+    <string name="custom_url_scheme">com.firedepartment.app</string>
+</resources>
