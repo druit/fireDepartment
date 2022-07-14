@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Customer } from 'src/app/interfaces/customer';
+import { AuthService } from 'src/app/services/auth/auth.service';
 import { FirebaseService } from 'src/app/services/firebase/firebase.service';
 
 
@@ -11,7 +12,7 @@ import { FirebaseService } from 'src/app/services/firebase/firebase.service';
 export class MainComponent implements OnInit {
   tutorial: Customer = new Customer();
   submitted = false;
-  constructor(private tutorialService: FirebaseService) { }
+  constructor(private tutorialService: FirebaseService, private auth: AuthService) { }
 
   saveTutorial(): void {
     this.tutorialService.create(this.tutorial).then(() => {
@@ -24,5 +25,9 @@ export class MainComponent implements OnInit {
     this.tutorial = new Customer();
   }
   ngOnInit(): void { }
+
+  logout(): void {
+    this.auth.logout();
+  }
 
 }

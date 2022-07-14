@@ -9,10 +9,15 @@ import { LoginComponent } from './routes/login/login.component';
 import { AngularFireModule } from '@angular/fire/compat';
 import { AngularFireAnalyticsModule } from '@angular/fire/compat/analytics';
 import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
+import { AngularFireDatabaseModule } from '@angular/fire/compat/database';
 import { environment } from 'src/environments/environment';
 import { FormsModule } from '@angular/forms';
 import { RegisterComponent } from './routes/register/register.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+// import ngx-translate and the http loader
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -26,11 +31,27 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     AppRoutingModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFireAnalyticsModule,
+    AngularFireDatabaseModule,
     AngularFirestoreModule,
     FormsModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+     // ngx-translate and the loader module
+     HttpClientModule,
+     TranslateModule.forRoot({
+         loader: {
+             provide: TranslateLoader,
+             useFactory: HttpLoaderFactory,
+             deps: [HttpClient]
+         }
+     })
   ],
   providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
+
+// required for AOT compilation
+export function HttpLoaderFactory(httpClient: HttpClient): TranslateHttpLoader {
+  return new TranslateHttpLoader(httpClient, './assets/i18n/', '.json');
+}
+
