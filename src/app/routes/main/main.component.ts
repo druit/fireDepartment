@@ -26,8 +26,4 @@ export class MainComponent implements OnInit {
   }
   ngOnInit(): void { }
 
-  logout(): void {
-    this.auth.logout();
-  }
-
 }

@@ -1,3 +1,16 @@
 {
-    "title": "2nd Firefighter Station"
+    "title": "2nd Firefighter Station",
+    "gen_profile": "Προφίλ",
+    "gen_firstname": "Όνομα: ",
+    "gen_lastname": "Επίθετο: ",
+    "gen_fullname": "Όν/επώνυμο: ",
+    "gen_fire_departmane_ID": "Α.Δ.Τ.Ε : ",
+    "gen_mobile": "Κινητό: ",
+    "gen_mail": "Email: ",
+    "gen_level": "Βαθμός: ",
+    "gen_type": "Ειδικότητα: ",
+    "gen_logout": "Έξοδος",
+    "firefighter_lvl_0": "Πυροσβέστης",
+    "firefighter_lvl_1": "Αρχήπυροσβέστης",
+    "firefighter_lvl_2": "Πυρονόμος"
 }

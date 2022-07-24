@@ -1,0 +1,58 @@
+.profile-container{
+    padding: 25px;
+    text-align: center;
+
+    .mat-icon-profile{
+        transform: translateY(7px);
+    }
+    .title {
+        font-size: 26px;
+        font-weight: 900;
+    }
+    .profile-name{
+        text-align: left;
+    }
+
+    .profile-photo{
+        .img-profile {
+            border-radius: 100%;
+            width: 200px;
+            height: 200px;
+        }
+        .img-lvl{
+            position: absolute;
+            width: 80px;
+            transform: rotate(1.568rad) translate(35px,55px);
+        }
+    }
+
+}
+
+.button-field{
+    text-align: center;
+    button{
+        background: transparent;
+        border-color: #ca3737;
+        color: var(--bs-body-color);
+
+       &:hover, &:focus{
+        background: #ca3737;
+        color: white;
+        mat-icon{
+            color:white;
+        }
+       }
+    }
+    .button-text{
+        mat-icon{
+            transform: translateY(2px);
+            display: inline-flex;
+            color: #ca3737;
+        }
+        .letter{
+            display: inline-flex;
+            transform: translateY(-5px) !important;
+            margin: 0 15px 0;
+        }
+    }
+}

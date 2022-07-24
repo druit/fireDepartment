@@ -1,0 +1,35 @@
+<div class="profile-container">
+    <div class="title">{{ 'gen_profile' | translate }}</div>
+    <div class="profile-photo">
+        <img class="img-profile" [src]="user.photo" alt="">
+        <img class="img-lvl" src="../../../assets/images/levels/{{user.imgLvl}}.png" alt="">
+    </div>
+    <div>
+        <mat-icon class="mat-icon-profile">person</mat-icon>: <span>{{user.firstname}} {{user.lastname}}</span>
+    </div>
+    <!-- <div>
+        {{'gen_lastname' | translate}} <span>{{user.lastname}}</span>
+    </div> -->
+    <div>
+        <mat-icon class="mat-icon-profile">mail_outline</mat-icon>: <span>{{user.email}}</span>
+    </div>
+    <div *ngIf="user.number.length>1">
+        <mat-icon class="mat-icon-profile">phone_android</mat-icon>: <span>{{user.number}}</span>
+    </div>
+    <div>
+        <!-- {{'gen_type' | translate}} <span>{{user.type}}</span> -->
+        <img class="img-lvl" style="height: 120px;" src="../../../assets/images/levels/type-{{user.type}}.jpg" alt="">
+    </div>
+    <!-- <div>
+        {{'gen_level' | translate}} <span>{{user.level | translate}}</span>
+    </div>  <mat-icon>grade</mat-icon>-->
+</div>
+
+<div class="button-field">
+    <button class="btn btn-primary" (click)="logout()">
+        <div class="button-text">
+            <mat-icon class="">exit_to_app</mat-icon>
+            <div class="letter">{{'gen_logout' | translate}}</div>
+        </div>  
+    </button>
+</div>

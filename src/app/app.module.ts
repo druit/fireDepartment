@@ -18,13 +18,19 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { ProfileComponent } from './components/profile/profile.component';
+import { NavBarComponent } from './components/nav-bar/nav-bar.component';
+// material icons
+import { MatIconModule } from '@angular/material/icon';
 
 @NgModule({
   declarations: [
     AppComponent,
     MainComponent,
     LoginComponent,
-    RegisterComponent
+    RegisterComponent,
+    ProfileComponent,
+    NavBarComponent
   ],
   imports: [
     BrowserModule,
@@ -33,6 +39,7 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
     AngularFireAnalyticsModule,
     AngularFireDatabaseModule,
     AngularFirestoreModule,
+    MatIconModule,
     FormsModule,
     BrowserAnimationsModule,
      // ngx-translate and the loader module

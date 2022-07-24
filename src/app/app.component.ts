@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { TranslateService } from "@ngx-translate/core";
+import { Observable } from 'rxjs';
 import { AuthService } from './services/auth/auth.service';
 import { FirebaseService } from './services/firebase/firebase.service';
 
@@ -9,13 +10,15 @@ import { FirebaseService } from './services/firebase/firebase.service';
   styleUrls: ['./app.component.less']
 })
 export class AppComponent {
-  title = 'fireDepartment';
+  isLoggedIn$?: Observable<boolean>;
   constructor(private translate: TranslateService,private authService: AuthService) {
     translate.setDefaultLang('el');
     translate.use('el');
   }
 
   ngOnInit(): void { 
-    this.authService.getAuth();
+    this.isLoggedIn$ = this.authService.isLoggedIn();
+    
+    console.log(this.isLoggedIn$);
   }
 }

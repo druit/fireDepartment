@@ -1,13 +1,16 @@
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { Router } from '@angular/router';
+import { BehaviorSubject, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
 
-  constructor(private fireAuth: AngularFireAuth, private router: Router) { }
+  public loggedInStatus = new BehaviorSubject<boolean>(false);
+
+  constructor(public fireAuth: AngularFireAuth, private router: Router) { }
 
   login(email: string, password: string) {
     this.fireAuth.signInWithEmailAndPassword(email, password).then((resp) => {
@@ -17,7 +20,7 @@ export class AuthService {
       })
       const uid = resp.user?.uid;
       localStorage.setItem('userUID', JSON.stringify(uid));
-     
+      this.loggedInStatus.next(true);
       this.router.navigate(['dashboard']);
     }, err => {
       alert(err.message);
@@ -39,8 +42,10 @@ export class AuthService {
     this.fireAuth.signOut().then((_resp) => {
       localStorage.removeItem('token');
       localStorage.removeItem('userUID');
+      
       setTimeout(() => {
         this.router.navigate(['/login']);
+        this.loggedInStatus.next(false);
       }, 200);
       
     }, err => {
@@ -48,19 +53,26 @@ export class AuthService {
     })
   }
 
-  getAuth(): any {
+  getAuth(): void {
     if (localStorage.getItem('token')) {
+      
       this.fireAuth.authState.subscribe((resp) => {
         console.log(resp?.toJSON())
+        this.loggedInStatus.next(true);
         setTimeout(() => {
           this.router.navigate(['dashboard']);
         });
-        // this.updateProfile({username:'Nikos5', photo: 'https://qph.cf2.quoracdn.net/main-qimg-0af6790cf4e77c8f11496c8ac81cfe9c-lq'});
+        // this.updateProfile({username:'Nikos,Karanikolas,0,0,6987123456', photo: 'https://qph.cf2.quoracdn.net/main-qimg-0af6790cf4e77c8f11496c8ac81cfe9c-lq'});
       });
     }
     // this.fireAuth.onAuthStateChanged((user) => {
     //   if (user) console.log(user);
     // })
+  }
+
+  isLoggedIn(): Observable<boolean> {
+    localStorage.getItem('token') && !location.href.includes('login') ? this.loggedInStatus.next(true) : this.loggedInStatus.next(false);
+    return this.loggedInStatus.asObservable();
   }
 
   updateProfile(data: any): void {
@@ -72,6 +84,7 @@ export class AuthService {
       resp?.updateProfile(profile);
       // resp?.updatePhoneNumber(profile.phoneNumber);
     })
-
   }
+
+
 }

@@ -15,6 +15,11 @@ export const environment = {
     messagingSenderId: "147328316352",
     appId: "1:147328316352:web:c7ff8f2c1e0a63a5198e25",
     measurementId: "G-XWN4NCHD23"
+  },
+  menu: {
+    admin: ['calendar','home','profile'],
+    secretariat: ['calendar','home','profile'],
+    user: ['calendar','home','profile']
   }
 };
 
