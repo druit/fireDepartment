@@ -3,32 +3,32 @@ A program where security forces ( in Greece ) (in this case, volunteers) can man
 
 ## Usage Links
 
-[Convert Angular App to Native Mobile App] -> https://betterprogramming.pub/how-to-convert-your-angular-application-to-a-native-mobile-app-android-and-ios-c212b38976df
+* [Convert Angular App to Native Mobile App] -> https://betterprogramming.pub/how-to-convert-your-angular-application-to-a-native-mobile-app-android-and-ios-c212b38976df
 
-[Angular 13 Firebase CRUD with Realtime Database | AngularFireDatabase] -> https://www.bezkoder.com/angular-13-firebase-crud/?fbclid=IwAR0qaLbwmuc_HINAz4y2tNqC4_zHuv0aQlVGIKaxTJVePum1sUBw7xf5T_M
+* [Angular 13 Firebase CRUD with Realtime Database | AngularFireDatabase] -> https://www.bezkoder.com/angular-13-firebase-crud/?fbclid=IwAR0qaLbwmuc_HINAz4y2tNqC4_zHuv0aQlVGIKaxTJVePum1sUBw7xf5T_M
 
-[Angular, Firebase & AngularFire Crash course] -> https://blog.angular-university.io/angular-2-firebase/?fbclid=IwAR156Iyvbj7s6sK560hY5gqvWNADcRtQEu8IqEb_4JZokXlVOO92d---10g
+* [Angular, Firebase & AngularFire Crash course] -> https://blog.angular-university.io/angular-2-firebase/?fbclid=IwAR156Iyvbj7s6sK560hY5gqvWNADcRtQEu8IqEb_4JZokXlVOO92d---10g
 
-[JScrambler] -> https://blog.jscrambler.com/tag/angular?text=&page=1&uuid=f12c86dd-697b-4f07-a577-f0fe8117dee3
+* [JScrambler] -> https://blog.jscrambler.com/tag/angular?text=&page=1&uuid=f12c86dd-697b-4f07-a577-f0fe8117dee3
 
-[Building an app with Angular & Firebase] -> https://blog.jscrambler.com/building-an-app-with-angular-firebase
+* [Building an app with Angular & Firebase] -> https://blog.jscrambler.com/building-an-app-with-angular-firebase
 
 ## CMD usage
 - Add native iOS and Android packages
-    `npm install @capacitor/ios @capacitor/android
+    $ npm install @capacitor/ios @capacitor/android
 
-    `npx cap add ios
+    $npx cap add ios
 
-    `npx cap add android
+    $npx cap add android
 
 - Build your app
-    `ng build --prod
+    $ng build --prod
 
-    `npx cap sync
+    $npx cap sync
 
 - Open Android studio or Xcode
-    `npx cap open ios
-    
-    `npx cap open android
+    $npx cap open ios
+
+    $npx cap open android
 
 -  Run the app!
