@@ -12,3 +12,19 @@ A program where security forces ( in Greece ) (in this case, volunteers) can man
 [JScrambler] -> https://blog.jscrambler.com/tag/angular?text=&page=1&uuid=f12c86dd-697b-4f07-a577-f0fe8117dee3
 
 [Building an app with Angular & Firebase] -> https://blog.jscrambler.com/building-an-app-with-angular-firebase
+
+## CMD usage
+- Add native iOS and Android packages
+    `npm install @capacitor/ios @capacitor/android
+    `npx cap add ios
+    `npx cap add android
+
+- Build your app
+    `ng build --prod
+    `npx cap sync
+
+- Open Android studio or Xcode
+    `npx cap open ios
+    `npx cap open android
+
+-  Run the app!
