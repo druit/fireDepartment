@@ -15,20 +15,19 @@ A program where security forces ( in Greece ) (in this case, volunteers) can man
 
 ## CMD usage
 - Add native iOS and Android packages
+```
     $ npm install @capacitor/ios @capacitor/android
-
-    $npx cap add ios
-
-    $npx cap add android
-
+    $ npx cap add ios
+    $ npx cap add android
+```
 - Build your app
-    $ng build --prod
-
-    $npx cap sync
-
+```
+    $ ng build --prod
+    $ npx cap sync
+```
 - Open Android studio or Xcode
-    $npx cap open ios
-
-    $npx cap open android
-
+```
+    $ npx cap open ios
+    $ npx cap open android
+```
 -  Run the app!
