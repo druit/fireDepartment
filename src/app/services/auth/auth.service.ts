@@ -86,5 +86,13 @@ export class AuthService {
     })
   }
 
+  getProfileAuth(): any {
+    return new Promise((res, rej) => {
+      this.fireAuth.authState.subscribe((resp) => {
+        res(resp?.toJSON());
+      })
+    }) 
+  }
+
 
 }

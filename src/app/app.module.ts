@@ -22,6 +22,40 @@ import { ProfileComponent } from './components/profile/profile.component';
 import { NavBarComponent } from './components/nav-bar/nav-bar.component';
 // material icons
 import { MatIconModule } from '@angular/material/icon';
+import { FirstLoginComponent } from './components/first-login/first-login.component';
+// material forms
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+// material tab
+import { MatTabsModule } from '@angular/material/tabs';
+// material stepper
+import {MatStepperModule} from '@angular/material/stepper';
+// material select
+import { MatSelectModule } from '@angular/material/select';
+// material button
+import { MatButtonModule } from '@angular/material/button';
+// Import Encrypt
+import { EncrDecrService } from '../app/services/EncrDecrService/encr-decr-service.service';
+// Import Bottom Sheet
+import { MatBottomSheetModule } from '@angular/material/bottom-sheet';
+// Import Mat List
+import { MatListModule } from '@angular/material/list';
+// Import Date Picker
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule, MAT_DATE_LOCALE } from '@angular/material/core';
+// Import Check Box
+import { MatCheckboxModule } from '@angular/material/checkbox';
+// ReactiveForms
+import { ReactiveFormsModule } from '@angular/forms';
+import { CalendarComponent } from './routes/calendar/calendar.component';
+import { CalendarModule, DateAdapter } from 'angular-calendar';
+import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
+import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
+// Dialog
+import { MatDialogModule } from '@angular/material/dialog';
+import { EventComponent } from './components/event/event.component';
+import { PlusButtonComponent } from './components/plus-button/plus-button.component';
+import { SelectDateServiceComponent } from './components/select-date-service/select-date-service.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +64,12 @@ import { MatIconModule } from '@angular/material/icon';
     LoginComponent,
     RegisterComponent,
     ProfileComponent,
-    NavBarComponent
+    NavBarComponent,
+    FirstLoginComponent,
+    CalendarComponent,
+    EventComponent,
+    PlusButtonComponent,
+    SelectDateServiceComponent
   ],
   imports: [
     BrowserModule,
@@ -40,6 +79,17 @@ import { MatIconModule } from '@angular/material/icon';
     AngularFireDatabaseModule,
     AngularFirestoreModule,
     MatIconModule,
+    MatInputModule,
+    MatFormFieldModule,
+    MatTabsModule,
+    MatStepperModule,
+    MatSelectModule,
+    MatButtonModule,
+    MatBottomSheetModule,
+    MatListModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatCheckboxModule,
     FormsModule,
     BrowserAnimationsModule,
      // ngx-translate and the loader module
@@ -50,9 +100,16 @@ import { MatIconModule } from '@angular/material/icon';
              useFactory: HttpLoaderFactory,
              deps: [HttpClient]
          }
-     })
+     }),
+     CalendarModule.forRoot({
+      provide: DateAdapter,
+      useFactory: adapterFactory,
+    }),
+    ReactiveFormsModule,
+    NgbModalModule,
+    MatDialogModule
   ],
-  providers: [],
+  providers: [EncrDecrService, {provide: MAT_DATE_LOCALE, useValue: 'el-GB'} ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

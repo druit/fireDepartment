@@ -1,18 +1,137 @@
+<div class="position-fixed top-0">
+    <mat-icon class="log-out-icon" (click)="goBack()">reply</mat-icon>
+</div>
 <div class="logo">
     <img src="../../../assets/images/logo.png" alt="">
 </div>
 <div class="fire-department-name">
-    2ος Πυροσβεστικός Σταθμός
+    {{'title' | translate}}
 </div>
 
-<div class="container-fluid">
+<!-- <div class="container-fluid">
     <div class="row mt-5">
         <div class="col"></div>
         <div class="col-sm">
             <div class="card shadow">
-                <div class="card-body">
-                    <form>
-                        <div class="mb-3">
+                <div class="card-body"> -->
+<!-- <form> -->
+<div class="example-container mt-5" style="text-align: center;">
+    <!-- <form [formGroup]="profileForm"> -->
+    <mat-stepper linear #stepper>
+        <mat-step [stepControl]="firstFormGroup">
+            <form [formGroup]="firstFormGroup">
+                <ng-template matStepLabel>
+                    {{'gen_informations' | translate}}
+                    <!-- <mat-icon class="example-tab-icon">info</mat-icon> -->
+                </ng-template>
+                <div class="mt-1">
+                    <mat-form-field appearance="outline">
+                        <mat-label>{{ 'gen_firstname' | translate}}</mat-label>
+                        <input matInput placeholder="Placeholder" formControlName="firstname" required>
+                        <!-- <mat-hint>Hint</mat-hint> -->
+                    </mat-form-field>
+
+                    <mat-form-field appearance="outline">
+                        <mat-label>{{ 'gen_lastname' | translate}}</mat-label>
+                        <input matInput placeholder="Placeholder" formControlName="lastname" required>
+                        <!-- <mat-hint>Hint</mat-hint> -->
+                    </mat-form-field>
+                    <mat-form-field appearance="outline">
+                        <mat-label>{{ 'gen_mail' | translate}}</mat-label>
+                        <input matInput placeholder="Placeholder" formControlName="email" required>
+                        <!-- <mat-hint>Hint</mat-hint> -->
+                    </mat-form-field>
+
+                    <mat-form-field appearance="outline">
+                        <span class="prefix" matPrefix>+30 &nbsp;</span>
+                        <mat-label>{{ 'gen_mobile' | translate}}</mat-label>
+                        <input matInput placeholder="Placeholder" formControlName="phone" required>
+                        <!-- <mat-icon matSuffix>sentiment_very_satisfied</mat-icon> -->
+                        <!-- <mat-hint>Hint</mat-hint> -->
+                    </mat-form-field>
+                </div>
+
+
+                <!-- Button next -->
+                <div class="mt-5" style="float: right;">
+                    <button mat-raised-button class="m-4" (click)="goForward(stepper)">{{'gen_next' | translate}}</button>
+                </div>
+            </form>
+        </mat-step>
+        <mat-step [stepControl]="secondFormGroup">
+            <!-- <ng-template mat-tab-label>
+                    <mat-icon class="example-tab-icon">account_circle</mat-icon>
+                </ng-template> -->
+
+            <form [formGroup]="secondFormGroup">
+                <ng-template matStepLabel>
+                    {{'gen_credencials' | translate}}
+                </ng-template>
+                <div class="mt-5">
+                    <mat-form-field appearance="fill">
+
+                        <mat-label>{{ 'gen_fire_department_ID' | translate}}</mat-label>
+                        <input matInput placeholder="Placeholder" formControlName="username">
+                        <!-- <mat-hint>Hint</mat-hint> -->
+                    </mat-form-field>
+
+                    <mat-form-field appearance="fill">
+                        <mat-label>{{ 'gen_password' | translate}}</mat-label>
+                        <input matInput placeholder="Placeholder" formControlName="password">
+                        <!-- <mat-icon matSuffix>sentiment_very_satisfied</mat-icon> -->
+                        <!-- <mat-hint>Hint</mat-hint> -->
+                    </mat-form-field>
+                </div>
+            </form>
+            <!-- Button Previous -->
+            <div class="mt-5" style="float: left;">
+                <button mat-raised-button class="m-4" (click)="goPrevious(stepper)">{{'gen_previous' | translate}}</button>
+            </div>
+            <!-- Button next -->
+            <div class="mt-5" style="float: right;">
+                <button mat-raised-button class="m-4" (click)="goForward(stepper)">{{'gen_next' | translate}}</button>
+            </div>
+        </mat-step>
+        <mat-step [stepControl]="thirdFormGroup">
+            <ng-template mat-tab-label>
+                {{'gen_complete' | translate}}
+                <!-- <mat-icon class="example-tab-icon">done</mat-icon> -->
+            </ng-template>
+            <form [formGroup]="thirdFormGroup">
+                <div class="mt-5">
+                    <mat-form-field appearance="fill">
+                        <mat-label>{{ 'gen_level' | translate}}</mat-label>
+                        <mat-select [(value)]="selected" [disabled]="true">
+                            <mat-option value="0">Πυροσβέστης</mat-option>
+                            <mat-option value="1">Αρχηπυροσβέστης</mat-option>
+                            <mat-option value="2">Πυρονόμος</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+
+                    <mat-form-field appearance="fill">
+                        <mat-label>{{ 'gen_type' | translate}}</mat-label>
+                        <mat-select [(value)]="selected" [disabled]="true">
+                            <mat-option value="0">Εθελοντής</mat-option>
+                            <mat-option value="1">Γραμματεία</mat-option>
+                            <mat-option value="2">Admin</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+            </form>
+            <!-- Button Previous -->
+            <div class="mt-5" style="float: left;">
+                <button mat-raised-button class="m-4" (click)="goPrevious(stepper)">{{'gen_previous' | translate}}</button>
+            </div>
+            <!-- Button next -->
+            <div class="mt-5" style="float: right;">
+                <button mat-raised-button class="m-4" (click)="complete()">{{'gen_complete' | translate}}</button>
+            </div>
+        </mat-step>
+    </mat-stepper>
+
+    <!-- </form> -->
+</div>
+<!-- <div class="mb-3">
                             <h4 class="text-dark text-muted">Register</h4>
                         </div>
                         <div class="mb-3">
@@ -28,11 +147,11 @@
                                     <a href="/login" style="text-decoration: none;">Have an account? <span class="text-danger">Login</span></a>
                                 </div>
                             </div>
-                        </div>
-                    </form>
-                </div>
+                        </div> -->
+<!-- </form> -->
+<!-- </div>
             </div>
         </div>
         <div class="col"></div>
     </div>
-</div>
+</div> -->

@@ -1,0 +1,35 @@
+<div class="text-center " [formGroup]="selectService">
+    <h1 class="mb-4">Δήλωση υπηρεσίας</h1>
+
+    <mat-form-field appearance="fill">
+        <mat-label>Επιλογή Ημερομηνίας</mat-label>
+        <input matInput [min]="minDate" formControlName="picker" [matDatepicker]="picker">
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+
+    <h3>Επιλογή Βάρδιας</h3>
+    <div class="row mt-2 select-hour mb-2">
+        <div class="col-4">
+            <mat-checkbox formControlName="A">A 8ώρο</mat-checkbox>
+            <mat-hint>(7.30 - 14.00)</mat-hint>
+        </div>
+        <div class="col-4">
+            <mat-checkbox formControlName="B">B 8ώρο</mat-checkbox>
+            <mat-hint>(14.00 - 22.00)</mat-hint>
+        </div>
+        <div class="col-4">
+            <mat-checkbox formControlName="G">Γ 8ώρο</mat-checkbox>
+            <mat-hint>(22.00 - 7.30)</mat-hint>
+        </div>
+    </div>
+    <mat-form-field class="full-width mt-2" appearance="fill">
+        <mat-label>Σχόλιο</mat-label>
+        <textarea matInput placeholder="πληκτρολογήστε..." formControlName="message"></textarea>
+    </mat-form-field>
+
+    <div>
+        <button class="btn-service btn-cancel-service" (click)="cancel()">Ακύρωση</button>
+        <button class="btn-service btn-send-service" type="submit" (click)="send()">Αποστολή</button>
+    </div>
+</div>

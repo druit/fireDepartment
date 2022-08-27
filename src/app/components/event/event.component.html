@@ -1,0 +1,32 @@
+<div class="btn-close" (click)="closeDialog()"></div>
+<div class="mt-5  container-table">
+    <div class="row">
+        <div class="col">
+            Ον/Επ
+        </div>
+        <div class="col-2">
+            A
+        </div>
+        <div class="col-2">
+            B
+        </div>
+        <div class="col-2">
+            Γ
+        </div>
+    </div>
+    <div *ngFor="let event of events" class="row">
+        <div class="col fix name-service"> {{event.name}}</div>
+        <div class="col-2">
+            <mat-icon class="no-service" *ngIf="!event.service[0].A">-</mat-icon>
+            <mat-icon *ngIf="event.service[0].A">check</mat-icon>
+        </div>
+        <div class="col-2">
+            <mat-icon class="no-service" *ngIf="!event.service[0].B">-</mat-icon>
+            <mat-icon *ngIf="event.service[0].B">check</mat-icon>
+        </div>
+        <div class="col-2">
+            <mat-icon class="no-service" *ngIf="!event.service[0].G">-</mat-icon>
+            <mat-icon *ngIf="event.service[0].G">check</mat-icon>
+        </div>
+    </div>
+</div>
