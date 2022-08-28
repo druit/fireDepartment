@@ -1,12 +1,37 @@
-<div class="logo">
-    <img src="../../../assets/images/logo.png" alt="">
-</div>
-<div class="fire-department-name">
-    {{'title' | translate}}
+<div class="top-place">
+    <div class="logo mt-3">
+        <img src="../../../assets/images/logo.png" alt="">
+    </div>
+    <div class="fire-department-name">
+        {{'title' | translate}}
+    </div>
 </div>
 
+<div>
+    <h2 class="text-center mt-4">Ανακοινώσεις</h2>
+</div>
+<div class="text-center mt-2">
+    <p *ngIf="!announcements">Δεν υπάρχουν ανακοινώσεις.</p>
+    <p *ngIf="announcements" class="announce-place-card">
+        <mat-card class="example-card mb-2" *ngFor="let announce of announcements">
+            <mat-card-title-group>
+                <mat-card-title>{{announce.title}}</mat-card-title>
+                <mat-card-subtitle>{{announce.description}}</mat-card-subtitle>
+                <img mat-card-lg-image *ngIf="announce.icon == 'attention'" src="../../../assets/images/announcements/attention.jpg">
+                <img mat-card-lg-image *ngIf="announce.icon == 'announce'" src="../../../assets/images/announcements/announce.jpg">
+            </mat-card-title-group>
+            <mat-card-content>
+                {{announce.message}}
+            </mat-card-content>
+        </mat-card>
+    </p>
+</div>
+
+
+
+
 <!-- <div class="text-center mt-5">You are Logged in!</div> -->
-<div class="container-fluid">
+<!-- <div class="container-fluid">
     <div class="submit-form">
         <div *ngIf="!submitted">
             <div class="form-group">
@@ -24,4 +49,4 @@
             <button class="btn btn-success mt-2" (click)="newTutorial()">Add</button>
         </div>
     </div>
-</div>
+</div> -->

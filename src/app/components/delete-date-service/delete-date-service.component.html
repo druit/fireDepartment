@@ -1,0 +1,19 @@
+<div class="text-center ">
+    <h1 class="mb-4">{{'delete_schedule' | translate}}</h1>
+
+    <div class="list-service">
+        <mat-selection-list #listSelectd>
+            <div mat-subheader>Υπηρεσίες</div>
+            <mat-list-option *ngFor="let obj of list">
+                <mat-icon mat-list-icon>directions</mat-icon>
+                <div mat-line><span *ngIf="obj.service[0].A">{{'A_h' | translate}}</span> <span *ngIf="obj.service[0].B"> {{'B_h' | translate}}</span> <span *ngIf="obj.service[0].G"> {{'G_h' | translate}}</span></div>
+                <div mat-line>{{obj.service[0].date | date: 'dd/MM/yyyy'}} </div>
+            </mat-list-option>
+        </mat-selection-list>
+    </div>
+
+    <div>
+        <button class="btn-service btn-cancel-service" (click)="cancel()">{{'gen_back'| translate}}</button>
+        <button class="btn-service btn-send-service" type="submit" (click)="delete()">{{'gen_delete'| translate}}</button>
+    </div>
+</div>

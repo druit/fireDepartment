@@ -22,5 +22,18 @@
     "gen_login": "Login",
     "gen_info_need_account": "Need Account ?",
     "gen_register": "Register",
-    "gen_forgot_password": "Forgot password?"
+    "gen_forgot_password": "Forgot password?",
+    "add_schedule": "Add event",
+    "delete_schedule": "Delete event",
+    "select_date": "Select Date",
+    "select_hour": "Select Hours",
+    "extra_message": "Message",
+    "write_here": "type...",
+    "btn_cancel": "Cancel",
+    "btn_send": "Submit",
+    "gen_back": "Back",
+    "gen_delete": "Delete",
+    "A_h": "I h",
+    "B_h": "II h",
+    "G_h": "III h"
 }

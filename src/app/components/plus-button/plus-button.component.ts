@@ -1,5 +1,5 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { MatBottomSheetRef } from '@angular/material/bottom-sheet';
+import { Component, EventEmitter, Inject, OnInit, Output } from '@angular/core';
+import { MatBottomSheetRef, MAT_BOTTOM_SHEET_DATA } from '@angular/material/bottom-sheet';
 import { CalendarComponent } from 'src/app/routes/calendar/calendar.component';
 import { DialogService } from 'src/app/services/dialogService/dialog.service';
 
@@ -11,7 +11,7 @@ import { DialogService } from 'src/app/services/dialogService/dialog.service';
 export class PlusButtonComponent implements OnInit {
 
 
-  constructor(private _bottomSheetRef: MatBottomSheetRef<CalendarComponent>, private dialogService: DialogService) { }
+  constructor(private _bottomSheetRef: MatBottomSheetRef<CalendarComponent>, private dialogService: DialogService, @Inject(MAT_BOTTOM_SHEET_DATA) public data: any) { }
 
   ngOnInit(): void {
   }
@@ -19,8 +19,20 @@ export class PlusButtonComponent implements OnInit {
   openLink(event: MouseEvent, type: string): void {
    
     event.preventDefault();
-    this.dialogService.openSelectDateDialog({}).subscribe(resp => {
-      this._bottomSheetRef.dismiss(resp);
-    })
+    switch (type) {
+      case 'add':
+        this.dialogService.openSelectDateDialog({}).subscribe(resp => {
+          this._bottomSheetRef.dismiss(resp);
+        })
+        break;
+      case 'delete':
+        this.dialogService.openDeletetDateDialog(this.data).subscribe(resp => {
+          this._bottomSheetRef.dismiss(resp);
+        })
+        break;
+      default:
+        break;
+    }
+
   }
 }

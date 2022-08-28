@@ -22,5 +22,18 @@
     "gen_login": "Είσοδος",
     "gen_info_need_account": "Δεν έχεις λογαριασμό;",
     "gen_register": "Εγγραφή",
-    "gen_forgot_password": "Ξέχασες τον κωδικό;"
+    "gen_forgot_password": "Ξέχασες τον κωδικό;",
+    "add_schedule": "Δήλωση υπηρεσίας",
+    "delete_schedule": "Ακύρωση υπηρεσίας",
+    "select_date": "Επιλογή Ημερομηνίας",
+    "select_hour": "Επιλογή Βάρδιας",
+    "extra_message": "Σχόλιο",
+    "write_here": "Πληκτρολογήστε...",
+    "btn_cancel": "Ακύρωση",
+    "btn_send": "Αποστολή",
+    "gen_back": "Πίσω",
+    "gen_delete": "Διαγραφή",
+    "A_h": "A 8ώρο",
+    "B_h": "B 8ώρο",
+    "G_h": "Γ 8ώρο"
 }

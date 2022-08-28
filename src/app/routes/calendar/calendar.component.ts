@@ -167,6 +167,8 @@ export class CalendarComponent implements OnInit {
       )
     ).subscribe(data => {
       console.log(data);
+      this.fullData = [];
+      this.events = [];
       this.fullData = data;
       data.forEach((dataByDate: any) => {
         // console.log(dataByDate);
@@ -187,7 +189,9 @@ export class CalendarComponent implements OnInit {
   } 
 
   openBottomSheet(): void {
-    this._bottomSheet.open(PlusButtonComponent).afterDismissed().subscribe((resp) => {
+    console.log(this.fullData)
+    const bottomSheetRef = this._bottomSheet.open(PlusButtonComponent, { data: this.fullData })
+    bottomSheetRef.afterDismissed().subscribe((resp) => {
       if(resp)
         this.addNewService(resp, this.firebaseService.getUserLogIn());
     });
@@ -244,7 +248,8 @@ export class CalendarComponent implements OnInit {
     this.modal.open(this.modalContent, { size: 'lg' });
   }
 
-  addNewService(data:any, user: any): void {
+  addNewService(data: any, user: any): void {
+    console.log(data);
     let selectDate = (new Date(data.picker).getMonth() + 1).toString() + '/' + new Date(data.picker).getDate().toString() + '/' + new Date(data.picker).getFullYear().toString();
     let find = false;
     this.fullData.forEach((event: any )=> {
@@ -298,6 +303,7 @@ export class CalendarComponent implements OnInit {
       }
     ]
     this.refresh.next();
+    this.scheduleService.createSchedule(this.fullData);
   }
 
   createServiceForFireDepartment(user: any): void {

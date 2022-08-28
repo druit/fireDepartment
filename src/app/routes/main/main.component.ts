@@ -14,8 +14,35 @@ import { EncrDecrService } from 'src/app/services/EncrDecrService/encr-decr-serv
 export class MainComponent implements OnInit {
   tutorial: Customer = new Customer();
   user: RegisterUser = new RegisterUser();
+  announcements!: {
+    title: string;
+    description: string;
+    message: string;
+    icon: string;
+  }[];
+
+  
+  longText = `The Shiba Inu is the smallest of the six original and distinct spitz breeds of dog
+  from Japan. A small, agile dog that copes very well with mountainous terrain, the Shiba Inu was
+  originally bred for hunting.`;
   submitted = false;
-  constructor(private fireService: FirebaseService, private auth: AuthService, private encryptService:EncrDecrService) { }
+  constructor(private fireService: FirebaseService, private auth: AuthService, private encryptService: EncrDecrService) {
+    
+    this.announcements = [
+      {
+        title: 'Στολές',
+        description: 'Έρχεται κακοκαιρία',
+        message: "The Shiba Inu is the smallest of the six original and distinct spitz breeds of dog from Japan. A small, agile dog that copes very well with mountainous terrain, the Shiba Inu was originally bred for hunting.",
+        icon: 'attention'
+      },
+      {
+        title: 'Στολές',
+        description: 'Έρχεται κακοκαιρία',
+        message: "The Shiba Inu is the smallest of the six original and distinct spitz breeds of dog from Japan. A small, agile dog that copes very well with mountainous terrain, the Shiba Inu was originally bred for hunting.",
+        icon: 'announce'
+      }
+    ]
+   }
 
   saveTutorial(): void {
     this.user = {

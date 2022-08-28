@@ -45,6 +45,8 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule, MAT_DATE_LOCALE } from '@angular/material/core';
 // Import Check Box
 import { MatCheckboxModule } from '@angular/material/checkbox';
+// Import card 
+import { MatCardModule } from '@angular/material/card';
 // ReactiveForms
 import { ReactiveFormsModule } from '@angular/forms';
 import { CalendarComponent } from './routes/calendar/calendar.component';
@@ -56,6 +58,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { EventComponent } from './components/event/event.component';
 import { PlusButtonComponent } from './components/plus-button/plus-button.component';
 import { SelectDateServiceComponent } from './components/select-date-service/select-date-service.component';
+import { DeleteDateServiceComponent } from './components/delete-date-service/delete-date-service.component';
 
 @NgModule({
   declarations: [
@@ -69,7 +72,8 @@ import { SelectDateServiceComponent } from './components/select-date-service/sel
     CalendarComponent,
     EventComponent,
     PlusButtonComponent,
-    SelectDateServiceComponent
+    SelectDateServiceComponent,
+    DeleteDateServiceComponent
   ],
   imports: [
     BrowserModule,
@@ -91,6 +95,7 @@ import { SelectDateServiceComponent } from './components/select-date-service/sel
     MatNativeDateModule,
     MatCheckboxModule,
     FormsModule,
+    MatCardModule,
     BrowserAnimationsModule,
      // ngx-translate and the loader module
      HttpClientModule,
