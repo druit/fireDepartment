@@ -11,9 +11,7 @@ export class EventComponent implements OnInit {
 
   constructor(public dialogRef: MatDialogRef<EventComponent>, @Inject(MAT_DIALOG_DATA) public events: any) { }
 
-  ngOnInit(): void {
-    console.log(this.events);
-  }
+  ngOnInit(): void { }
 
   closeDialog(): void {
     this.dialogRef.close();

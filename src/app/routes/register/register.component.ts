@@ -5,6 +5,7 @@ import { EncrDecrService } from 'src/app/services/EncrDecrService/encr-decr-serv
 import { MatStepper } from '@angular/material/stepper';
 import { RegisterUser } from 'src/app/interfaces/register-user';
 import { FirebaseService } from 'src/app/services/firebase/firebase.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-register',
@@ -37,13 +38,13 @@ export class RegisterComponent implements OnInit {
   clasicMail: string = '@2ndfiredepartment.com';
   password: string = '';
 
-  constructor(private auth: AuthService,private fireService:FirebaseService, private encryptService:EncrDecrService, private _formBuilder: FormBuilder) { }
+  constructor(private auth: AuthService,private fireService:FirebaseService, private encryptService:EncrDecrService, private _formBuilder: FormBuilder, private _snackBar: MatSnackBar) { }
 
   ngOnInit(): void {
     var encrypted = this.encryptService.set('123456$#@$^@1ERF', 'pass');
     var decrypted = this.encryptService.get('123456$#@$^@1ERF', encrypted);
-    console.log('Encrypted :' + encrypted);
-    console.log('Encrypted :' + decrypted);
+    // console.log('Encrypted :' + encrypted);
+    // console.log('Encrypted :' + decrypted);
   }
 
   register(): void {
@@ -74,24 +75,43 @@ export class RegisterComponent implements OnInit {
     stepper.next();
   }
   complete(): void {
-    this.user = {
-      key: this.secondFormGroup.controls['username'].value,
-      // uuid: '',
-      firstname: this.firstFormGroup.controls['firstname'].value,
-      lastname: this.firstFormGroup.controls['lastname'].value,
-      fullname: this.firstFormGroup.controls['firstname'].value + ' ' + this.firstFormGroup.controls['lastname'].value,
-      email: this.firstFormGroup.controls['email'].value,
-      phone: this.firstFormGroup.controls['phone'].value,
-      username: this.secondFormGroup.controls['username'].value,
-      passwowrd: this.encryptService.set(this.secondFormGroup.controls['username'].value,this.secondFormGroup.controls['password'].value), //'123456$#@$^@1ERF', 'pass'),
-      level: this.thirdFormGroup.controls['level'].value,
-      type: this.thirdFormGroup.controls['type'].value,
-    }
-    var enc = this.encryptService.set("123456$#@$^@1ERF", this.secondFormGroup.controls['password'].value)
-    console.log(enc)
-    console.log(this.encryptService.get("123456$#@$^@1ERF",enc))
-    this.auth.register(this.firstFormGroup.controls['email'].value,this.secondFormGroup.controls['password'].value);
-    this.fireService.createUser(this.user);
-    // console.log(this.user)
+    this.fireService.getIDs().then((resp: any) => {
+      if (resp) {
+        const find = resp.filter((obj: any) => {
+          return obj.id == this.secondFormGroup.controls['username'].value;
+        });
+        if (find.length == 1) {
+          this.fireService.getRegisterUsers().then((resp: any) => {
+            const control = resp.filter((obj: any) => {
+              return obj.key == this.secondFormGroup.controls['username'].value;
+            });
+            if (control.length == 0) {
+               this.user = {
+                key: this.secondFormGroup.controls['username'].value,
+                // uuid: '',
+                firstname: this.firstFormGroup.controls['firstname'].value,
+                lastname: this.firstFormGroup.controls['lastname'].value,
+                fullname: this.firstFormGroup.controls['firstname'].value + ' ' + this.firstFormGroup.controls['lastname'].value,
+                email: this.firstFormGroup.controls['email'].value,
+                phone: this.firstFormGroup.controls['phone'].value,
+                username: this.secondFormGroup.controls['username'].value,
+                passwowrd: this.encryptService.set(this.secondFormGroup.controls['username'].value,this.secondFormGroup.controls['password'].value), //'123456$#@$^@1ERF', 'pass'),
+                level: this.thirdFormGroup.controls['level'].value,
+                type: this.thirdFormGroup.controls['type'].value,
+              }
+              var enc = this.encryptService.set("123456$#@$^@1ERF", this.secondFormGroup.controls['password'].value)
+              // console.log(enc)
+              // console.log(this.encryptService.get("123456$#@$^@1ERF", enc))
+              this.auth.register(this.firstFormGroup.controls['email'].value,this.secondFormGroup.controls['password'].value);
+              this.fireService.createUser(this.user);
+            } else {
+              this._snackBar.open("Αυτός ο χρήστης είναι ήδη ενεργοποιημένος", 'Κλείσιμο');
+            }
+          });
+        } else {
+          this._snackBar.open("Ο Α.Μ που πληκτρολογήσατε δεν είναι διαθέσιμος", 'Κλείσιμο');
+        }
+      }
+    })
   }
 }

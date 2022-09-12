@@ -44,8 +44,8 @@ export class LoginComponent implements OnInit {
         if (user.username == this.email) {
           var encrypted_pass = this.encryptService.set("123456$#@$^@1ERF", this.password);
           var decrypted_pass = this.encryptService.get("123456$#@$^@1ERF", encrypted_pass);
-          console.log(user)
-          console.log(decrypted_pass)
+          // console.log(user)
+          // console.log(decrypted_pass)
           if (user.email)
             this.auth.login(user.email, decrypted_pass);
           

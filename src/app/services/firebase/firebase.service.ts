@@ -70,6 +70,42 @@ export class FirebaseService {
     });
   }
 
+  async getIDs() {
+    const db = this.db.list('IDs');
+    return await new Promise(resolve => {
+      db.snapshotChanges().pipe(
+        map(changes =>
+          changes.map(c =>
+            ({ id: c.payload.val()})
+          )
+        )
+      ).subscribe(data => {
+        if (data)
+          resolve(data);
+        else
+          resolve(false);
+      });
+    });
+  }
+
+  async getRegisterUsers() {
+    const db = this.db.list('users');
+    return await new Promise(resolve => {
+      db.snapshotChanges().pipe(
+        map(changes =>
+          changes.map(c =>
+            ({ key: c.payload.key})
+          )
+        )
+      ).subscribe(data => {
+        if (data)
+          resolve(data);
+        else
+          resolve(false);
+      });
+    });
+  }
+
   getUserLogIn(): RegisterUser {
     return this.user;
   }

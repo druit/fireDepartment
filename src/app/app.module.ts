@@ -47,6 +47,8 @@ import { MatNativeDateModule, MAT_DATE_LOCALE } from '@angular/material/core';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 // Import card 
 import { MatCardModule } from '@angular/material/card';
+// Import Snack-bar 
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 // ReactiveForms
 import { ReactiveFormsModule } from '@angular/forms';
 import { CalendarComponent } from './routes/calendar/calendar.component';
@@ -59,6 +61,8 @@ import { EventComponent } from './components/event/event.component';
 import { PlusButtonComponent } from './components/plus-button/plus-button.component';
 import { SelectDateServiceComponent } from './components/select-date-service/select-date-service.component';
 import { DeleteDateServiceComponent } from './components/delete-date-service/delete-date-service.component';
+import { CreateAnnounceComponent } from './components/create-announce/create-announce.component';
+import { AnnounceButtonComponent } from './components/announce-button/announce-button.component';
 
 @NgModule({
   declarations: [
@@ -73,7 +77,9 @@ import { DeleteDateServiceComponent } from './components/delete-date-service/del
     EventComponent,
     PlusButtonComponent,
     SelectDateServiceComponent,
-    DeleteDateServiceComponent
+    DeleteDateServiceComponent,
+    CreateAnnounceComponent,
+    AnnounceButtonComponent
   ],
   imports: [
     BrowserModule,
@@ -96,6 +102,7 @@ import { DeleteDateServiceComponent } from './components/delete-date-service/del
     MatCheckboxModule,
     FormsModule,
     MatCardModule,
+    MatSnackBarModule,
     BrowserAnimationsModule,
      // ngx-translate and the loader module
      HttpClientModule,

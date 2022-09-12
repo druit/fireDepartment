@@ -5,6 +5,10 @@ import { RegisterUser } from 'src/app/interfaces/register-user';
 import { AuthService } from 'src/app/services/auth/auth.service';
 import { FirebaseService } from 'src/app/services/firebase/firebase.service';
 import { EncrDecrService } from 'src/app/services/EncrDecrService/encr-decr-service.service';
+import { CreateAnnounceComponent } from 'src/app/components/create-announce/create-announce.component';
+import { MatBottomSheet } from '@angular/material/bottom-sheet';
+import { AnnounceButtonComponent } from 'src/app/components/announce-button/announce-button.component';
+import { AnnouncementService } from 'src/app/services/announcement/announcement.service';
 
 @Component({
   selector: 'app-main',
@@ -16,33 +20,16 @@ export class MainComponent implements OnInit {
   user: RegisterUser = new RegisterUser();
   announcements!: {
     title: string;
-    description: string;
+    date: string;
     message: string;
     icon: string;
   }[];
 
-  
-  longText = `The Shiba Inu is the smallest of the six original and distinct spitz breeds of dog
-  from Japan. A small, agile dog that copes very well with mountainous terrain, the Shiba Inu was
-  originally bred for hunting.`;
+
   submitted = false;
-  constructor(private fireService: FirebaseService, private auth: AuthService, private encryptService: EncrDecrService) {
-    
-    this.announcements = [
-      {
-        title: 'Στολές',
-        description: 'Έρχεται κακοκαιρία',
-        message: "The Shiba Inu is the smallest of the six original and distinct spitz breeds of dog from Japan. A small, agile dog that copes very well with mountainous terrain, the Shiba Inu was originally bred for hunting.",
-        icon: 'attention'
-      },
-      {
-        title: 'Στολές',
-        description: 'Έρχεται κακοκαιρία',
-        message: "The Shiba Inu is the smallest of the six original and distinct spitz breeds of dog from Japan. A small, agile dog that copes very well with mountainous terrain, the Shiba Inu was originally bred for hunting.",
-        icon: 'announce'
-      }
-    ]
-   }
+  fullData: any;
+  firebaseService: any;
+  constructor(private fireService: FirebaseService,private announcementService: AnnouncementService, private auth: AuthService, private encryptService: EncrDecrService, private _bottomSheet: MatBottomSheet) { }
 
   saveTutorial(): void {
     this.user = {
@@ -72,12 +59,29 @@ export class MainComponent implements OnInit {
         )
       )
     ).subscribe(data => {
-      console.log(data);
     });
-    console.log();
     this.auth.getProfileAuth().then((resp: any) => {
       this.fireService.setUserLogIn(resp);
+      this.announcementService.getAnnouncements().then((data: any) => {
+        this.user = this.fireService.getUserLogIn();
+        this.announcements = data.map((obj:any) => {
+          return obj.data;
+        })
+      })
     })
+  }
+
+  openBottomSheet(): void {
+    // console.log(this.fullData)
+    const bottomSheetRef = this._bottomSheet.open(AnnounceButtonComponent, { data: this.announcements})
+    bottomSheetRef.afterDismissed().subscribe((resp: any) => {
+
+      if (resp && resp.type == 'add')
+        this.announcementService.createAnnounce(resp.data);
+      // else if (resp && resp.type == 'delete')
+      //   this.deleteService(resp);
+    });
+
   }
 
 }

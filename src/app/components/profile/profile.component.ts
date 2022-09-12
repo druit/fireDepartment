@@ -32,7 +32,6 @@ export class ProfileComponent implements OnInit {
         )
       ).subscribe(data => {
         data.forEach((user: RegisterUser) => {
-          console.log(user)
           if (user.email ==  this.user?.email) {
             this.user = {
               id_card: user.username,
@@ -53,13 +52,7 @@ export class ProfileComponent implements OnInit {
      
   }
 
-  ngOnInit(): void {
-    
-    setTimeout(() => {
-      console.log(this.user)
-    }, 1000);
-    
-  }
+  ngOnInit(): void { }
 
   logout(): void {
     this.auth.logout();

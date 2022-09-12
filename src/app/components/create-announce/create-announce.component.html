@@ -1,0 +1,34 @@
+<div class="">
+    <mat-icon class="log-out-icon" (click)="goBack()">reply</mat-icon>
+</div>
+<div class="text-center mt-4 ">
+    <h2 class="announce-title">{{'create_announce'| translate}}</h2>
+</div>
+<div class="mt-4">
+    {{'gen_date' | translate}} <span style="font-style:italic;"> {{date | date: 'dd/MM/yyyy, HH:mm'}}</span>
+</div>
+
+<form class="example-form mt-2" [formGroup]="formAnnounce">
+    <mat-form-field class="example-full-width" appearance="legacy">
+        <mat-label>{{'gen_title_announcement' | translate}}</mat-label>
+        <input matInput placeholder="{{'gen_placeholder_announcement' | translate}}" value="" autocomplete="off" formControlName="title">
+    </mat-form-field>
+
+    <mat-form-field class="example-full-width" appearance="outline">
+        <mat-label>{{'gen_description_announcement' | translate}}</mat-label>
+        <textarea style="height: 150px;" matInput placeholder="{{'gen_description_placeholder_announcement' | translate}}" formControlName="message"></textarea>
+    </mat-form-field>
+    <div class="text-center">
+        <mat-form-field appearance="legacy">
+            <mat-label>{{'gen_type_announce' | translate}}</mat-label>
+            <mat-select [(ngModel)]="selectedValue" name="food" formControlName="icon">
+                <mat-option *ngFor="let type of types" [value]="type.type">
+                    {{type.value | translate}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+    </div>
+</form>
+<div class="mt-2 announce-button">
+    <button (click)="submit()" [disabled]="!formAnnounce.valid">{{'gen_submit_announce' | translate}}</button>
+</div>

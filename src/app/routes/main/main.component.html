@@ -16,7 +16,7 @@
         <mat-card class="example-card mb-2" *ngFor="let announce of announcements">
             <mat-card-title-group>
                 <mat-card-title>{{announce.title}}</mat-card-title>
-                <mat-card-subtitle>{{announce.description}}</mat-card-subtitle>
+                <mat-card-subtitle>{{announce.date | date: 'dd/MM/YYYY HH:mm'}}</mat-card-subtitle>
                 <img mat-card-lg-image *ngIf="announce.icon == 'attention'" src="../../../assets/images/announcements/attention.jpg">
                 <img mat-card-lg-image *ngIf="announce.icon == 'announce'" src="../../../assets/images/announcements/announce.jpg">
             </mat-card-title-group>
@@ -25,6 +25,10 @@
             </mat-card-content>
         </mat-card>
     </p>
+</div>
+
+<div class="fix-btn-plus" *ngIf="user.type == 1">
+    <button class="btn-plus" mat-raised-button (click)="openBottomSheet()"><mat-icon>add</mat-icon></button>
 </div>
 
 

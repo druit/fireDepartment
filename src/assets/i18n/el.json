@@ -35,5 +35,16 @@
     "gen_delete": "Διαγραφή",
     "A_h": "A 8ώρο",
     "B_h": "B 8ώρο",
-    "G_h": "Γ 8ώρο"
+    "G_h": "Γ 8ώρο",
+    "create_announce": "Δημιουργία ανακοίνωσης",
+    "delete_announce": "Διαγραφή ανακοίνωσης",
+    "gen_announce": "Ανακοίνωση",
+    "gen_attention": "Προειδοποίηση",
+    "gen_title_announcement": "Τίτλος Ανακοίνωσης",
+    "gen_placeholder_announcement": "Πληκτρολογήστε...",
+    "gen_description_announcement": "Περιγραφή",
+    "gen_description_placeholder_announcement": "Πληκτρολογήστε λεπτομέριες...",
+    "gen_type_announce": "Τύπος ανακοίνωσης",
+    "gen_date": "Ημερομηνία: ",
+    "gen_submit_announce": "Ανάρτηση"
 }

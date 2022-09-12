@@ -71,63 +71,7 @@ export class CalendarComponent implements OnInit {
   ];
 
   fullData: any = [
-    // {
-    //   date: '8/26/2022',
-    //   data: [
-    //     {
-    //       id: '02B126',
-    //       name: 'Καρανικόλας Νικόλαος',
-    //       service: [
-    //         {
-    //           date: '8/26/2022',
-    //           A: true,
-    //           B: true,
-    //           G: false,
-    //         }
-    //       ]
-    //     },
-    //     {
-    //       id: '02A555',
-    //       name: 'Μιτσοπούλου Κατερινά',
-    //       service: [
-    //         {
-    //           date: '8/26/2022',
-    //           A: true,
-    //           B: false,
-    //           G: false,
-    //         }
-    //       ]
-    //     },
-    //     {
-    //       id: '01Α133',
-    //       name: 'Παπαδόπουλος Δημήτρης',
-    //       service: [
-    //         {
-    //           date: '8/26/2022',
-    //           A: true,
-    //           B: true,
-    //           G: true,
-    //         }
-    //       ]
-    //     }
-    //   ]
-    // }, {
-    //   date: '8/27/2022',
-    //   data: [
-    //     {
-    //       id: '02B126',
-    //       name: 'Καρανικόλας Νικόλαος',
-    //       service: [
-    //         {
-    //           date: '8/27/2022',
-    //           A: true,
-    //           B: true,
-    //           G: false,
-    //         }
-    //       ]
-    //     }
-    //   ]
-    // }
+   
   ];
 
   // actions: CalendarEventAction[] = [
@@ -157,8 +101,6 @@ export class CalendarComponent implements OnInit {
   constructor(private modal: NgbModal, private dialogService: DialogService, private _bottomSheet: MatBottomSheet, private firebaseService: FirebaseService, private scheduleService: ScheduleService) { }
   
   ngOnInit(): void {
-    // console.log("ELEOS", this.fullData)
-    // this.scheduleService.createSchedule(this.fullData);
     this.scheduleService.getAllSchedule().snapshotChanges().pipe(
       map(changes =>
         changes.map(c =>
@@ -166,14 +108,11 @@ export class CalendarComponent implements OnInit {
         )
       )
     ).subscribe(data => {
-      console.log(data);
       this.fullData = [];
       this.events = [];
       this.fullData = data;
       data.forEach((dataByDate: any) => {
-        // console.log(dataByDate);
         dataByDate.data.forEach((person: any) => {
-          // this.addEvent();
           this.createServiceForFireDepartment(person);
           
         });
@@ -189,39 +128,24 @@ export class CalendarComponent implements OnInit {
   } 
 
   openBottomSheet(): void {
-    console.log(this.fullData)
     const bottomSheetRef = this._bottomSheet.open(PlusButtonComponent, { data: this.fullData })
     bottomSheetRef.afterDismissed().subscribe((resp) => {
-      if(resp)
+      if (resp && resp.type == 'add')
         this.addNewService(resp, this.firebaseService.getUserLogIn());
+      else if (resp && resp.type == 'delete')
+        this.deleteService(resp);
     });
 
   }
 
   dayClicked({ date, events }: { date: Date; events: CalendarEvent[] }): void {
-    let services;
+
     this.fullData.forEach((data: any) => {
       if (new Date(data.date).getTime() == date.getTime()) {
-        services = data.data;       
+        this.dialogService.openEventDialog(data.data).subscribe(resp => { }) 
       }
     });
 
-    
-    
-    // if (isSameMonth(date, this.viewDate)) {
-    //   if (
-    //     (isSameDay(this.viewDate, date) && this.activeDayIsOpen === true) ||
-    //     events.length === 0
-    //   ) {
-    //     this.activeDayIsOpen = false;
-    //   } else {
-    //     this.activeDayIsOpen = true;
-    //   }
-    //   this.viewDate = date;
-    // }
-    this.dialogService.openEventDialog(services).subscribe(resp => {
-      console.log(resp);
-    })
   }
 
   eventTimesChanged({
@@ -244,19 +168,17 @@ export class CalendarComponent implements OnInit {
 
   handleEvent(action: string, event: CalendarEvent): void {
     this.modalData = { event, action };
-    console.log(this.modalData)
     this.modal.open(this.modalContent, { size: 'lg' });
   }
 
   addNewService(data: any, user: any): void {
-    console.log(data);
     let selectDate = (new Date(data.picker).getMonth() + 1).toString() + '/' + new Date(data.picker).getDate().toString() + '/' + new Date(data.picker).getFullYear().toString();
     let find = false;
-    this.fullData.forEach((event: any )=> {
+    this.fullData.forEach((event: any, i: number )=> {
       if (event.date == selectDate) {
         find = true;
         event.data.push({
-          id: user.username,
+          id: user.id_card,
           name: user.firstname + ' ' + user.lastname,
           service: new Array({
             date: selectDate,
@@ -286,7 +208,6 @@ export class CalendarComponent implements OnInit {
       })
     }
 
-    console.log( this.fullData)
     this.events = [
       ...this.events,
       {
@@ -303,11 +224,39 @@ export class CalendarComponent implements OnInit {
       }
     ]
     this.refresh.next();
+    
     this.scheduleService.createSchedule(this.fullData);
   }
 
+  deleteService(data: any): void {
+    let newData = new Array();
+    this.fullData.map((obj: any) => {
+      data.forEach((obj2: any )=> {
+        if (obj.date == obj2.service[0].date) {
+          newData.push(obj);
+        }
+      });
+    });
+    let newData2 = new Array();
+    newData.forEach(obj => {
+      obj.data.forEach((service: any) => {
+        if (service.id != data[0].id) {
+          newData2.push({key : obj.key,data: service});
+        }
+      });
+      if (newData2.length == 0) {
+        this.fullData = this.fullData.filter((resp: any) => {
+           return  resp.key != obj.key
+        })
+      }
+    });
+    newData2.forEach(obj => {
+      this.fullData[obj.key].data = new Array(obj.data)
+    });
+    this.scheduleService.deleteSchedule(1, this.fullData);
+  }
+
   createServiceForFireDepartment(user: any): void {
-    console.log(user)
     this.events = [
       ...this.events,
       {
@@ -328,7 +277,6 @@ export class CalendarComponent implements OnInit {
 
   isPastService(date: string): string {
     let today = (new Date().getMonth()+1).toString() + '/' + new Date().getDate().toString() + '/' + new Date().getFullYear().toString()
-    // console.log(new Date(today),new Date(date));
     
     if (new Date(today) < new Date(date)) return 'blue';
     else if (today == date) return 'green';

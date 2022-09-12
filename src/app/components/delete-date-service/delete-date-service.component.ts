@@ -1,5 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatSelectionListChange } from '@angular/material/list';
 import { RegisterUser } from 'src/app/interfaces/register-user';
 import { FirebaseService } from 'src/app/services/firebase/firebase.service';
 import { EventComponent } from '../event/event.component';
@@ -12,6 +13,8 @@ import { EventComponent } from '../event/event.component';
 export class DeleteDateServiceComponent implements OnInit {
   user!: any;
   currentDate!: string;
+  selectedOptions=[];
+  selectedOption: any;
   list: any = [];
   constructor(public dialogRef: MatDialogRef<EventComponent>, @Inject(MAT_DIALOG_DATA) public data: any, private firebaseService: FirebaseService) { 
     this.user = this.firebaseService.getUserLogIn();
@@ -19,15 +22,11 @@ export class DeleteDateServiceComponent implements OnInit {
   }
   
   ngOnInit(): void {
-    console.log(this.data)
-    console.log(this.user)
-    console.log(this.currentDate)
    
     const data = this.data.filter((obj: any) => {
       return new Date(obj.date).getTime() > new Date(this.currentDate).getTime();
     });
     this.list = this.findUserServices(data);
-    console.log( this.list)
   }
 
   findUserServices(data: any): any {
@@ -43,11 +42,14 @@ export class DeleteDateServiceComponent implements OnInit {
   }
 
   cancel(): void {
-    this.dialogRef.close();
+    this.dialogRef.close(false);
   }
 
   delete(): void {
-   
+    this.dialogRef.close(this.selectedOption)
   }
 
+  onNgModelChange($event: any){
+    this.selectedOption=$event;
+  }
 }

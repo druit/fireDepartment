@@ -35,5 +35,16 @@
     "gen_delete": "Delete",
     "A_h": "I h",
     "B_h": "II h",
-    "G_h": "III h"
+    "G_h": "III h",
+    "create_announce": "Create Announce",
+    "delete_announce": "Delete Announce",
+    "gen_announce": "Announcement",
+    "gen_attention": "Attention",
+    "gen_title_announcement": "Title",
+    "gen_placeholder_announcement": "type...",
+    "gen_description_announcement": "Description",
+    "gen_description_placeholder_announcement": "Type more info...",
+    "gen_type_announce": "Type announcement",
+    "gen_date": "Date: ",
+    "gen_submit_announce": "Share"
 }

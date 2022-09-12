@@ -57,7 +57,6 @@ export class AuthService {
     if (localStorage.getItem('token')) {
       
       this.fireAuth.authState.subscribe((resp) => {
-        console.log(resp?.toJSON())
         this.loggedInStatus.next(true);
         setTimeout(() => {
           this.router.navigate(['dashboard']);
