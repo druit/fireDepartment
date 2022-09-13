@@ -46,5 +46,7 @@
     "gen_description_placeholder_announcement": "Πληκτρολογήστε λεπτομέριες...",
     "gen_type_announce": "Τύπος ανακοίνωσης",
     "gen_date": "Ημερομηνία: ",
-    "gen_submit_announce": "Ανάρτηση"
+    "gen_submit_announce": "Ανάρτηση",
+    "set_number_service": "Όριο δήλωσης υπηρεσιών",
+    "declare_limit": "Όριο: "
 }

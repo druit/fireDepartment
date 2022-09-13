@@ -12,6 +12,7 @@ import { PlusButtonComponent } from 'src/app/components/plus-button/plus-button.
 import { FirebaseService } from 'src/app/services/firebase/firebase.service';
 import { RegisterUser } from 'src/app/interfaces/register-user';
 import { ScheduleService } from 'src/app/services/scheduleService/schedule.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 registerLocaleData(locale);
 
@@ -98,7 +99,7 @@ export class CalendarComponent implements OnInit {
 
   activeDayIsOpen: boolean = false;
 
-  constructor(private modal: NgbModal, private dialogService: DialogService, private _bottomSheet: MatBottomSheet, private firebaseService: FirebaseService, private scheduleService: ScheduleService) { }
+  constructor(private modal: NgbModal, private dialogService: DialogService, private _bottomSheet: MatBottomSheet, private firebaseService: FirebaseService, private scheduleService: ScheduleService,private _snackBar: MatSnackBar) { }
   
   ngOnInit(): void {
     this.scheduleService.getAllSchedule().snapshotChanges().pipe(
@@ -134,18 +135,18 @@ export class CalendarComponent implements OnInit {
         this.addNewService(resp, this.firebaseService.getUserLogIn());
       else if (resp && resp.type == 'delete')
         this.deleteService(resp);
+      else if (resp && resp.type == 'number')
+        this.setDeclareServiceLimits(resp);
     });
 
   }
 
   dayClicked({ date, events }: { date: Date; events: CalendarEvent[] }): void {
-
     this.fullData.forEach((data: any) => {
       if (new Date(data.date).getTime() == date.getTime()) {
         this.dialogService.openEventDialog(data.data).subscribe(resp => { }) 
       }
     });
-
   }
 
   eventTimesChanged({
@@ -174,20 +175,30 @@ export class CalendarComponent implements OnInit {
   addNewService(data: any, user: any): void {
     let selectDate = (new Date(data.picker).getMonth() + 1).toString() + '/' + new Date(data.picker).getDate().toString() + '/' + new Date(data.picker).getFullYear().toString();
     let find = false;
+    let alreadyInList = false;
     this.fullData.forEach((event: any, i: number )=> {
       if (event.date == selectDate) {
+        console.log(event)
         find = true;
-        event.data.push({
-          id: user.id_card,
-          name: user.firstname + ' ' + user.lastname,
-          service: new Array({
-            date: selectDate,
-            A: data.A,
-            B: data.B,
-            G: data.G,
-            message: data.message
+       const thereIs = event.data.filter((obj: any) => {
+          return obj.id == user.id_card
+        });
+        if (thereIs.length == 0) { 
+          event.data.push({
+            id: user.id_card,
+            name: user.firstname + ' ' + user.lastname,
+            service: new Array({
+              date: selectDate,
+              A: data.A,
+              B: data.B,
+              G: data.G,
+              message: data.message
+            })
           })
-        })
+        } else {
+          alreadyInList = true;
+          this._snackBar.open("Έχετε δηλώση ήδη υπηρεσία.", 'Κλείσιμο');
+        }
       }
     });
 
@@ -207,25 +218,26 @@ export class CalendarComponent implements OnInit {
         })
       })
     }
-
-    this.events = [
-      ...this.events,
-      {
-        title: user.firstname + ' ' + user.lastname,
-        start: new Date(selectDate),
-        end: new Date(selectDate),
-        color: colors[this.isPastService(selectDate)],
-        actions: this.actions,
-        draggable: false,
-        resizable: {
-          beforeStart: false,
-          afterEnd: false,
+    if(!alreadyInList){
+      this.events = [
+        ...this.events,
+        {
+          title: user.firstname + ' ' + user.lastname,
+          start: new Date(selectDate),
+          end: new Date(selectDate),
+          color: colors[this.isPastService(selectDate)],
+          actions: this.actions,
+          draggable: false,
+          resizable: {
+            beforeStart: false,
+            afterEnd: false,
+          }
         }
-      }
-    ]
-    this.refresh.next();
-    
-    this.scheduleService.createSchedule(this.fullData);
+      ]
+      this.refresh.next();
+      
+      this.scheduleService.createSchedule(this.fullData);
+    }
   }
 
   deleteService(data: any): void {
@@ -255,6 +267,10 @@ export class CalendarComponent implements OnInit {
     });
     this.scheduleService.deleteSchedule(1, this.fullData);
   }
+
+  setDeclareServiceLimits(data: any): void {
+    this.scheduleService.updateDeclaration('service', data.resp);
+  };
 
   createServiceForFireDepartment(user: any): void {
     this.events = [

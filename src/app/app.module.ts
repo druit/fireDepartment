@@ -49,6 +49,8 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatCardModule } from '@angular/material/card';
 // Import Snack-bar 
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+// Import Slider
+import { MatSliderModule } from '@angular/material/slider';
 // ReactiveForms
 import { ReactiveFormsModule } from '@angular/forms';
 import { CalendarComponent } from './routes/calendar/calendar.component';
@@ -63,6 +65,7 @@ import { SelectDateServiceComponent } from './components/select-date-service/sel
 import { DeleteDateServiceComponent } from './components/delete-date-service/delete-date-service.component';
 import { CreateAnnounceComponent } from './components/create-announce/create-announce.component';
 import { AnnounceButtonComponent } from './components/announce-button/announce-button.component';
+import { DeclareServiceLimitsComponent } from './components/declare-service-limits/declare-service-limits.component';
 
 @NgModule({
   declarations: [
@@ -79,7 +82,8 @@ import { AnnounceButtonComponent } from './components/announce-button/announce-b
     SelectDateServiceComponent,
     DeleteDateServiceComponent,
     CreateAnnounceComponent,
-    AnnounceButtonComponent
+    AnnounceButtonComponent,
+    DeclareServiceLimitsComponent
   ],
   imports: [
     BrowserModule,
@@ -103,6 +107,7 @@ import { AnnounceButtonComponent } from './components/announce-button/announce-b
     FormsModule,
     MatCardModule,
     MatSnackBarModule,
+    MatSliderModule,
     BrowserAnimationsModule,
      // ngx-translate and the loader module
      HttpClientModule,

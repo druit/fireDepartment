@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { CreateAnnounceComponent } from 'src/app/components/create-announce/create-announce.component';
+import { DeclareServiceLimitsComponent } from 'src/app/components/declare-service-limits/declare-service-limits.component';
 import { DeleteDateServiceComponent } from 'src/app/components/delete-date-service/delete-date-service.component';
 import { EventComponent } from 'src/app/components/event/event.component';
 import { SelectDateServiceComponent } from 'src/app/components/select-date-service/select-date-service.component';
@@ -57,6 +58,19 @@ export class DialogService {
       maxWidth: "100vw",
       width: "100vw",
       height: "80vh",
+      panelClass:"select-service",
+      autoFocus: false,
+      data: data
+    });
+
+    return dialogRef.afterClosed();
+  }
+
+  openDeclareServiceLimits(data: any) {
+    const dialogRef = this.dialog.open(DeclareServiceLimitsComponent, {
+      maxWidth: "100vw",
+      width: "100vw",
+      height: "40vh",
       panelClass:"select-service",
       autoFocus: false,
       data: data

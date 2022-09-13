@@ -15,7 +15,6 @@ export class AnnouncementService {
   }
 
   createAnnounce(announce: any): void {
-    console.log(announce)
     const tutRef = this.db.object(this.dbPath + '/');
     tutRef.set(announce);
   }

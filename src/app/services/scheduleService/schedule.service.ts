@@ -31,4 +31,27 @@ export class ScheduleService {
     tutRef.set(schedule);
   }
 
+  async getDecrationServiceLimits() {
+    const db = this.db.list('declaration');
+    return await new Promise(resolve => {
+      db.snapshotChanges().pipe(
+        map(changes =>
+          changes.map(c =>
+            ({ service: c.payload.val()})
+          )
+        )
+      ).subscribe(data => {
+        if (data)
+          resolve(data);
+        else
+          resolve(false);
+      });
+    });
+  }
+
+  updateDeclaration(key: string, value: any): Promise<void> {
+    const db = this.db.list('declaration');
+    return db.set(key, value);
+  }
+
 }

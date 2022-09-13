@@ -52,7 +52,6 @@ export class FirebaseService {
       )
     ).subscribe(data => {
       data.forEach((user: RegisterUser) => {
-        console.log(user)
         if (user.email == userLog?.email) {
           this.user = {
             id_card: user.username,

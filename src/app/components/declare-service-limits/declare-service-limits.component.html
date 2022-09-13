@@ -1,0 +1,16 @@
+<div class="text-center mt-2">
+    <h1>{{'set_number_service'| translate}}</h1>
+</div>
+<div class="text-center mt-4">
+    <mat-slider thumbLabel [displayWith]="formatLabel" tickInterval="1" step="1" min="0" max="10" aria-label="units" [(ngModel)]="value"></mat-slider>
+
+    <div class="example-label-container">
+        <label>{{'declare_limit'| translate}}</label>
+        <label class="value-label">{{value}}</label>
+    </div>
+</div>
+
+<div class="text-center mt-5">
+    <button class="btn-service btn-cancel-service" (click)="cancel()">{{'gen_back'| translate}}</button>
+    <button class="btn-service btn-send-service" type="submit" (click)="submit()">{{'btn_send'| translate}}</button>
+</div>
