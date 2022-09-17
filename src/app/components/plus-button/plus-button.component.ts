@@ -17,7 +17,6 @@ export class PlusButtonComponent implements OnInit {
   user!: RegisterUser;
   ngOnInit(): void {
     this.user = this.firebaseService.getUserLogIn();
-    console.log( this.user)
   }
 
   openLink(event: MouseEvent, type: string): void {
@@ -31,7 +30,6 @@ export class PlusButtonComponent implements OnInit {
         })
         break;
       case 'delete':
-        console.log(this.data);
         this.dialogService.openDeletetDateDialog({ data: this.data, user: this.user }).subscribe(resp => {
           if(resp) resp.type = type;
           this._bottomSheetRef.dismiss(resp);

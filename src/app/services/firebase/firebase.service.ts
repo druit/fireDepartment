@@ -42,30 +42,32 @@ export class FirebaseService {
     return this.firebaseRef;
   }
 
-  setUserLogIn(userLog: RegisterUser): void {
-
-    this.getAllUsers().snapshotChanges().pipe(
-      map(changes =>
-        changes.map(c =>
-          ({ key: c.payload.key, ...c.payload.val() })
+  async setUserLogIn(userLog: RegisterUser): Promise<any> {
+    return await new Promise(resolve => {
+      this.getAllUsers().snapshotChanges().pipe(
+        map(changes =>
+          changes.map(c =>
+            ({ key: c.payload.key, ...c.payload.val() })
+          )
         )
-      )
-    ).subscribe(data => {
-      data.forEach((user: RegisterUser) => {
-        if (user.email == userLog?.email) {
-          this.user = {
-            id_card: user.username,
-            firstname: user.firstname,
-            lastname: user.lastname,
-            type: user.type,
-            level: user.level ? this.getLvl(user.level) : this.getLvl(0),
-            number: user.phone,
-            imgLvl: user.level ? user.level : 0,
-            email: user?.email,
-            photo: user.avatar ? user.avatar : ''
+      ).subscribe(data => {
+        data.forEach((user: RegisterUser) => {
+          if (user.email == userLog?.email) {
+            this.user = {
+              id_card: user.username,
+              firstname: user.firstname,
+              lastname: user.lastname,
+              type: user.type,
+              level: user.level ? this.getLvl(user.level) : this.getLvl(0),
+              number: user.phone,
+              imgLvl: user.level ? user.level : 0,
+              email: user?.email,
+              photo: user.avatar ? user.avatar : ''
+            }
+            resolve(this.user);
           }
-        }
-      });
+        });
+      })     
     });
   }
 
@@ -94,6 +96,24 @@ export class FirebaseService {
         map(changes =>
           changes.map(c =>
             ({ key: c.payload.key})
+          )
+        )
+      ).subscribe(data => {
+        if (data)
+          resolve(data);
+        else
+          resolve(false);
+      });
+    });
+  }
+
+  async getUsers() {
+    const db = this.db.list('users');
+    return await new Promise(resolve => {
+      db.snapshotChanges().pipe(
+        map(changes =>
+          changes.map(c =>
+            ({ user : c.payload.val() })
           )
         )
       ).subscribe(data => {

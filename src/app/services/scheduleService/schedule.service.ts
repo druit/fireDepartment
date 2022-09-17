@@ -10,6 +10,7 @@ import { map } from 'rxjs/operators';
 export class ScheduleService {
   private dbPath = '/schedule';
   firebaseRef: AngularFireList<any>
+  serviceLimitsNumber: number = 6;
 
   items!: Observable<any[]>;
   constructor(private db: AngularFireDatabase) { 
@@ -48,6 +49,17 @@ export class ScheduleService {
       });
     });
   }
+
+  setServiceLimits() {
+    this.getDecrationServiceLimits().then((resp: any) => {
+      this.serviceLimitsNumber = resp[0].service;
+    })
+  }
+
+  getServiceLimits(): number {
+    return this.serviceLimitsNumber;
+  }
+
 
   updateDeclaration(key: string, value: any): Promise<void> {
     const db = this.db.list('declaration');

@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component, OnInit, TemplateRef, ViewChild, Vie
 import { subDays, startOfDay, addDays, endOfMonth, addHours, endOfDay, isSameDay, isSameMonth } from 'date-fns';
 import { map, Subject } from 'rxjs';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { CalendarView, CalendarEvent, CalendarEventAction, CalendarEventTimesChangedEvent } from 'angular-calendar';
+import { CalendarView, CalendarEvent, CalendarEventAction, CalendarEventTimesChangedEvent, CalendarMonthViewBeforeRenderEvent, CalendarDayViewBeforeRenderEvent, CalendarWeekViewBeforeRenderEvent } from 'angular-calendar';
 import { registerLocaleData } from '@angular/common';
 import locale from '@angular/common/locales/el';
 import { MatDialog } from '@angular/material/dialog';
@@ -13,6 +13,7 @@ import { FirebaseService } from 'src/app/services/firebase/firebase.service';
 import { RegisterUser } from 'src/app/interfaces/register-user';
 import { ScheduleService } from 'src/app/services/scheduleService/schedule.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { da } from 'date-fns/locale';
 
 registerLocaleData(locale);
 
@@ -45,7 +46,6 @@ const colors: any = {
   
 export class CalendarComponent implements OnInit {
   locale: string = "el";
- 
 
   @ViewChild('modalContent', { static: true })
   modalContent!: TemplateRef<any>;
@@ -144,7 +144,7 @@ export class CalendarComponent implements OnInit {
   dayClicked({ date, events }: { date: Date; events: CalendarEvent[] }): void {
     this.fullData.forEach((data: any) => {
       if (new Date(data.date).getTime() == date.getTime()) {
-        this.dialogService.openEventDialog(data.data).subscribe(resp => { }) 
+        this.dialogService.openEventDialog({data:data.data, date: data.date}).subscribe(resp => { }) 
       }
     });
   }
@@ -175,15 +175,16 @@ export class CalendarComponent implements OnInit {
   addNewService(data: any, user: any): void {
     let selectDate = (new Date(data.picker).getMonth() + 1).toString() + '/' + new Date(data.picker).getDate().toString() + '/' + new Date(data.picker).getFullYear().toString();
     let find = false;
+    let canCreate = true;
     let alreadyInList = false;
     this.fullData.forEach((event: any, i: number )=> {
       if (event.date == selectDate) {
-        console.log(event)
+        canCreate = this.checkServiceLimits(event.data.length);
         find = true;
        const thereIs = event.data.filter((obj: any) => {
           return obj.id == user.id_card
         });
-        if (thereIs.length == 0) { 
+        if (thereIs.length == 0 && canCreate) { 
           event.data.push({
             id: user.id_card,
             name: user.firstname + ' ' + user.lastname,
@@ -195,6 +196,8 @@ export class CalendarComponent implements OnInit {
               message: data.message
             })
           })
+        } else if (!canCreate) {
+          this._snackBar.open("Δε μπορείτε να δηλώσετε τη συγκεκριμένη μέρα υπηρεσία, Επιλέξτε άλλη ημερομηνία.", 'Κλείσιμο');
         } else {
           alreadyInList = true;
           this._snackBar.open("Έχετε δηλώση ήδη υπηρεσία.", 'Κλείσιμο');
@@ -202,7 +205,7 @@ export class CalendarComponent implements OnInit {
       }
     });
 
-    if (!find) {
+    if (!find && !alreadyInList && canCreate) {
       this.fullData.push({
         date: selectDate, data: new Array({
             id: user.id_card,
@@ -218,7 +221,7 @@ export class CalendarComponent implements OnInit {
         })
       })
     }
-    if(!alreadyInList){
+    if(!alreadyInList && canCreate){
       this.events = [
         ...this.events,
         {
@@ -238,6 +241,10 @@ export class CalendarComponent implements OnInit {
       
       this.scheduleService.createSchedule(this.fullData);
     }
+  }
+
+  checkServiceLimits(dataLength: number): boolean {
+    return this.scheduleService.getServiceLimits() == dataLength ? false : true;
   }
 
   deleteService(data: any): void {
@@ -262,8 +269,8 @@ export class CalendarComponent implements OnInit {
         })
       }
     });
-    newData2.forEach(obj => {
-      this.fullData[obj.key].data = new Array(obj.data)
+    newData2.forEach((obj: any, i: number) => {
+      i == 0 ? this.fullData[obj.key].data = new Array(obj.data) : this.fullData[obj.key].data.push(obj.data)
     });
     this.scheduleService.deleteSchedule(1, this.fullData);
   }

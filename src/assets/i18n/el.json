@@ -48,5 +48,6 @@
     "gen_date": "Ημερομηνία: ",
     "gen_submit_announce": "Ανάρτηση",
     "set_number_service": "Όριο δήλωσης υπηρεσιών",
-    "declare_limit": "Όριο: "
+    "declare_limit": "Όριο: ",
+    "gen_search": "Αναζήτηση"
 }

@@ -9,6 +9,7 @@ import { CreateAnnounceComponent } from 'src/app/components/create-announce/crea
 import { MatBottomSheet } from '@angular/material/bottom-sheet';
 import { AnnounceButtonComponent } from 'src/app/components/announce-button/announce-button.component';
 import { AnnouncementService } from 'src/app/services/announcement/announcement.service';
+import { ScheduleService } from 'src/app/services/scheduleService/schedule.service';
 
 @Component({
   selector: 'app-main',
@@ -29,7 +30,7 @@ export class MainComponent implements OnInit {
   submitted = false;
   fullData: any;
   firebaseService: any;
-  constructor(private fireService: FirebaseService,private announcementService: AnnouncementService, private auth: AuthService, private encryptService: EncrDecrService, private _bottomSheet: MatBottomSheet) { }
+  constructor(private scheduleService: ScheduleService,private fireService: FirebaseService,private announcementService: AnnouncementService, private auth: AuthService, private encryptService: EncrDecrService, private _bottomSheet: MatBottomSheet) { }
 
   saveTutorial(): void {
     this.user = {
@@ -52,27 +53,16 @@ export class MainComponent implements OnInit {
     this.tutorial = new Customer();
   }
   ngOnInit(): void { 
-    this.fireService.getAllUsers().snapshotChanges().pipe(
-      map(changes =>
-        changes.map(c =>
-          ({ key: c.payload.key, ...c.payload.val() })
-        )
-      )
-    ).subscribe(data => {
-    });
-    this.auth.getProfileAuth().then((resp: any) => {
-      this.fireService.setUserLogIn(resp);
-      this.announcementService.getAnnouncements().then((data: any) => {
-        this.user = this.fireService.getUserLogIn();
-        this.announcements = data.map((obj:any) => {
-          return obj.data;
-        })
+    this.scheduleService.setServiceLimits();
+    this.announcementService.getAnnouncements().then((data: any) => {
+      this.user = this.fireService.getUserLogIn();
+      this.announcements = data.map((obj: any) => {
+        return obj.data;
       })
-    })
+    });
   }
 
   openBottomSheet(): void {
-    // console.log(this.fullData)
     const bottomSheetRef = this._bottomSheet.open(AnnounceButtonComponent, { data: this.announcements})
     bottomSheetRef.afterDismissed().subscribe((resp: any) => {
 

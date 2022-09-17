@@ -51,6 +51,10 @@ import { MatCardModule } from '@angular/material/card';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 // Import Slider
 import { MatSliderModule } from '@angular/material/slider';
+// Import Table
+import { MatTableModule } from '@angular/material/table';
+// Import Paginator
+import { MatPaginatorModule } from '@angular/material/paginator';
 // ReactiveForms
 import { ReactiveFormsModule } from '@angular/forms';
 import { CalendarComponent } from './routes/calendar/calendar.component';
@@ -66,6 +70,7 @@ import { DeleteDateServiceComponent } from './components/delete-date-service/del
 import { CreateAnnounceComponent } from './components/create-announce/create-announce.component';
 import { AnnounceButtonComponent } from './components/announce-button/announce-button.component';
 import { DeclareServiceLimitsComponent } from './components/declare-service-limits/declare-service-limits.component';
+import { TableComponent } from './routes/table/table.component';
 
 @NgModule({
   declarations: [
@@ -83,7 +88,8 @@ import { DeclareServiceLimitsComponent } from './components/declare-service-limi
     DeleteDateServiceComponent,
     CreateAnnounceComponent,
     AnnounceButtonComponent,
-    DeclareServiceLimitsComponent
+    DeclareServiceLimitsComponent,
+    TableComponent
   ],
   imports: [
     BrowserModule,
@@ -108,6 +114,8 @@ import { DeclareServiceLimitsComponent } from './components/declare-service-limi
     MatCardModule,
     MatSnackBarModule,
     MatSliderModule,
+    MatTableModule,
+    MatPaginatorModule,
     BrowserAnimationsModule,
      // ngx-translate and the loader module
      HttpClientModule,

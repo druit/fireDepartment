@@ -48,5 +48,6 @@
     "gen_date": "Date: ",
     "gen_submit_announce": "Share",
     "set_number_service": "Service declaration limit",
-    "declare_limit": "Declaration"
+    "declare_limit": "Declaration",
+    "gen_search": "Search"
 }
