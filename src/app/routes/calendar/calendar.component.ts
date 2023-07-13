@@ -177,6 +177,7 @@ export class CalendarComponent implements OnInit {
     let find = false;
     let canCreate = true;
     let alreadyInList = false;
+    let newService;
     this.fullData.forEach((event: any, i: number )=> {
       if (event.date == selectDate) {
         canCreate = this.checkServiceLimits(event.data.length);
@@ -185,7 +186,7 @@ export class CalendarComponent implements OnInit {
           return obj.id == user.id_card
         });
         if (thereIs.length == 0 && canCreate) { 
-          event.data.push({
+          newService = {
             id: user.id_card,
             name: user.firstname + ' ' + user.lastname,
             service: new Array({
@@ -195,7 +196,8 @@ export class CalendarComponent implements OnInit {
               G: data.G,
               message: data.message
             })
-          })
+          }
+          event.data.push(newService)
         } else if (!canCreate) {
           this._snackBar.open("Δε μπορείτε να δηλώσετε τη συγκεκριμένη μέρα υπηρεσία, Επιλέξτε άλλη ημερομηνία.", 'Κλείσιμο');
         } else {
@@ -206,7 +208,7 @@ export class CalendarComponent implements OnInit {
     });
 
     if (!find && !alreadyInList && canCreate) {
-      this.fullData.push({
+      newService ={
         date: selectDate, data: new Array({
             id: user.id_card,
             name: user.firstname + ' ' + user.lastname,
@@ -219,7 +221,8 @@ export class CalendarComponent implements OnInit {
               message: data.message
             })
         })
-      })
+      };
+      this.fullData.push(newService)
     }
     if(!alreadyInList && canCreate){
       this.events = [
@@ -239,7 +242,7 @@ export class CalendarComponent implements OnInit {
       ]
       this.refresh.next();
       
-      this.scheduleService.createSchedule(this.fullData);
+      this.scheduleService.createSchedule({fullData: this.fullData, newService: newService});
     }
   }
 

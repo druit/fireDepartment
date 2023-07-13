@@ -7,5 +7,5 @@
 <!-- User -->
 <mat-nav-list *ngIf="user.type == 0">
     <a mat-list-item (click)="openLink($event,'add')"><span style="transform: translateY(3px)" class="m-2"><mat-icon>note_add</mat-icon></span>{{'add_schedule'| translate}}</a>
-    <!-- <a mat-list-item (click)="openLink($event,'delete')"><span style="transform: translateY(3px)" class="m-2"><mat-icon>delete_outline</mat-icon></span>{{'delete_schedule'| translate}}</a> -->
+    <a mat-list-item (click)="openLink($event,'delete')"><span style="transform: translateY(3px)" class="m-2"><mat-icon>delete_outline</mat-icon></span>{{'delete_schedule'| translate}}</a>
 </mat-nav-list>

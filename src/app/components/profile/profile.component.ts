@@ -61,7 +61,4 @@ export class ProfileComponent implements OnInit {
   getLvl(lvl: any): string {
     return "firefighter_lvl_"+lvl.toString();
   }
-
-
-
 }

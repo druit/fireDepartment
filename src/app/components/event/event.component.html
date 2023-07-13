@@ -15,19 +15,19 @@
             Γ
         </div>
     </div>
-    <div *ngFor="let event of events.data" class="row">
+    <div *ngFor="let event of services" class="row">
         <div class="col fix name-service"> {{event.name}}</div>
         <div class="col-2">
-            <mat-icon class="no-service" *ngIf="!event.service[0].A">-</mat-icon>
-            <mat-icon *ngIf="event.service[0].A">check</mat-icon>
+            <mat-icon class="no-service" *ngIf="!event.service[0].A"> </mat-icon>
+            <mat-icon style="transform: translateY(4px);  color: green" *ngIf="event.service[0].A">person</mat-icon>
         </div>
         <div class="col-2">
-            <mat-icon class="no-service" *ngIf="!event.service[0].B">-</mat-icon>
-            <mat-icon *ngIf="event.service[0].B">check</mat-icon>
+            <mat-icon class="no-service" *ngIf="!event.service[0].B"> </mat-icon>
+            <mat-icon style="transform: translateY(4px);  color: green" *ngIf="event.service[0].B">person</mat-icon>
         </div>
         <div class="col-2">
-            <mat-icon class="no-service" *ngIf="!event.service[0].G">-</mat-icon>
-            <mat-icon *ngIf="event.service[0].G">check</mat-icon>
+            <mat-icon class="no-service" *ngIf="!event.service[0].G"> </mat-icon>
+            <mat-icon style="transform: translateY(4px); color: green" *ngIf="event.service[0].G">person</mat-icon>
         </div>
     </div>
 </div>

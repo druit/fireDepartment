@@ -4,6 +4,7 @@ import { MatDatepickerInputEvent } from '@angular/material/datepicker';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import * as moment from 'moment';
 import { EventComponent } from '../event/event.component';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-select-date-service',
@@ -12,7 +13,7 @@ import { EventComponent } from '../event/event.component';
 })
 export class SelectDateServiceComponent implements OnInit {
 
-  constructor(public dialogRef: MatDialogRef<EventComponent>, @Inject(MAT_DIALOG_DATA) public events: any, private _formBuilder: FormBuilder) { }
+  constructor(public dialogRef: MatDialogRef<EventComponent>, @Inject(MAT_DIALOG_DATA) public events: any, private _formBuilder: FormBuilder,private _snackBar: MatSnackBar) { }
 
 
   selectService = this._formBuilder.group({
@@ -33,10 +34,12 @@ export class SelectDateServiceComponent implements OnInit {
   }
 
   send(): void {
-    if (this.selectService.controls['A'].value || this.selectService.controls['B'].value || this.selectService.controls['G'].value) {
+    if (this.selectService.controls['A'].value || this.selectService.controls['B'].value || this.selectService.controls['G'].value && !(this.selectService.controls['picker'].value.length == 0)) {
       this.dialogRef.close(this.selectService.value);
+    }else if(this.selectService.controls['picker'].value.length == 0){
+      this._snackBar.open("Πρέπει να επιλέξετε ημερομηνία", 'Κλείσιμο');
     } else {
-      console.dir('Error')
+      this._snackBar.open("Πρέπει να επιλέξετε βάρδια", 'Κλείσιμο');
     }
    
   }
