@@ -1,19 +1,15 @@
 import { ChangeDetectionStrategy, Component, OnInit, TemplateRef, ViewChild, ViewEncapsulation } from '@angular/core';
-import { subDays, startOfDay, addDays, endOfMonth, addHours, endOfDay, isSameDay, isSameMonth } from 'date-fns';
 import { map, Subject } from 'rxjs';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { CalendarView, CalendarEvent, CalendarEventAction, CalendarEventTimesChangedEvent, CalendarMonthViewBeforeRenderEvent, CalendarDayViewBeforeRenderEvent, CalendarWeekViewBeforeRenderEvent } from 'angular-calendar';
 import { registerLocaleData } from '@angular/common';
 import locale from '@angular/common/locales/el';
-import { MatDialog } from '@angular/material/dialog';
 import { DialogService } from 'src/app/services/dialogService/dialog.service';
 import { MatBottomSheet } from '@angular/material/bottom-sheet';
 import { PlusButtonComponent } from 'src/app/components/plus-button/plus-button.component';
 import { FirebaseService } from 'src/app/services/firebase/firebase.service';
-import { RegisterUser } from 'src/app/interfaces/register-user';
 import { ScheduleService } from 'src/app/services/scheduleService/schedule.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { da } from 'date-fns/locale';
 
 registerLocaleData(locale);
 
@@ -180,9 +176,9 @@ export class CalendarComponent implements OnInit {
     let newService;
     this.fullData.forEach((event: any, i: number )=> {
       if (event.date == selectDate) {
-        canCreate = this.checkServiceLimits(event.data.length);
+        canCreate = this.checkServiceLimits(event.data,data);
         find = true;
-       const thereIs = event.data.filter((obj: any) => {
+        const thereIs = event.data.filter((obj: any) => {
           return obj.id == user.id_card
         });
         if (thereIs.length == 0 && canCreate) { 
@@ -246,8 +242,31 @@ export class CalendarComponent implements OnInit {
     }
   }
 
-  checkServiceLimits(dataLength: number): boolean {
-    return this.scheduleService.getServiceLimits() == dataLength ? false : true;
+  checkServiceLimits(services: any, newService: any): boolean {
+    let A = new Array();
+    let B = new Array();
+    let G = new Array();
+    let canCreate: boolean[] = [true,true,true];
+    let freeSpace: boolean[] = [false,false,false];
+    services.forEach((resp: any) => {
+        if(resp?.service[0]['A']) A.push(true)
+        if(resp?.service[0]['B']) B.push(true)
+        if(resp?.service[0]['G']) G.push(true)
+    });
+    // set Free space per service Hour (8h)
+    if(this.scheduleService.getServiceLimits() > A.length) freeSpace[0] = true;
+    if(this.scheduleService.getServiceLimits() > B.length) freeSpace[1] = true;    
+    if(this.scheduleService.getServiceLimits() > G.length) freeSpace[2] = true;
+    // set selected service hour if that's free
+    if(newService['A'] && !freeSpace[0]) canCreate[0] = false;
+    if(newService['B'] && !freeSpace[1]) canCreate[1] = false;
+    if(newService['G'] && !freeSpace[2]) canCreate[2] = false;
+
+    const can = canCreate.filter( value => {
+      return !value;
+    });
+    
+    return can.length ? false : true;
   }
 
   deleteService(data: any): void {

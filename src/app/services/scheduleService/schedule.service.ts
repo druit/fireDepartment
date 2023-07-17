@@ -19,7 +19,6 @@ export class ScheduleService {
 
 
   createSchedule(schedule: any): void {
-    console.log(schedule);
     const tutRef = this.db.object(this.dbPath + '/');
     tutRef.set(schedule.fullData);
   }
