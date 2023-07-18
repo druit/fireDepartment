@@ -15,6 +15,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 export class RegisterComponent implements OnInit {
 
   user: RegisterUser = new RegisterUser();
+  hide = true;
 
   firstFormGroup = this._formBuilder.group({
     firstname: ['', [Validators.required,  Validators.minLength(4),  Validators.maxLength(25)]],
