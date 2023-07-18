@@ -1,9 +1,9 @@
 <div class="profile-container">
     <div class="title">{{ 'gen_profile' | translate }}</div>
     <div class="profile-photo">
-        <img *ngIf="!user?.photo" class="img-profile" src="/assets/images/firefighter.png" alt="">
+        <img *ngIf="!user?.photo" class="img-profile" src="assets/images/firefighter.png" alt="">
         <img *ngIf="user?.photo" class="img-profile" [src]="user?.photo" alt="">
-        <img class="img-lvl" src="/assets/images/levels/{{user?.imgLvl}}.png" alt="">
+        <img class="img-lvl" src="assets/images/levels/{{user?.imgLvl}}.png" alt="">
     </div>
     <div class="mt-2">
         <div>
@@ -55,7 +55,7 @@
         </div>
         <div>
             <!-- {{'gen_type' | translate}} <span>{{user.type}}</span> -->
-            <img class="img-lvl" style="height: 120px;" src="/assets/images/levels/type-{{user.type}}.jpg" alt="">
+            <img class="img-lvl" style="height: 120px;" src="assets/images/levels/type-{{user.type}}.jpg" alt="">
         </div>
         <!-- <div>
         {{'gen_level' | translate}} <span>{{user.level | translate}}</span>

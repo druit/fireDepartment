@@ -1,6 +1,6 @@
 <div class="top-place">
     <div class="logo mt-3">
-        <img src="../../../assets/images/logo.png" alt="">
+        <img src="assets/images/logo.png" alt="">
     </div>
     <div class="fire-department-name">
         {{'title' | translate}}
@@ -17,8 +17,8 @@
             <mat-card-title-group>
                 <mat-card-title>{{announce.title}}</mat-card-title>
                 <mat-card-subtitle>{{announce.date | date: 'dd/MM/YYYY HH:mm'}}</mat-card-subtitle>
-                <img mat-card-lg-image *ngIf="announce.icon == 'attention'" src="../../../assets/images/announcements/attention.jpg">
-                <img mat-card-lg-image *ngIf="announce.icon == 'announce'" src="../../../assets/images/announcements/announce.jpg">
+                <img mat-card-lg-image *ngIf="announce.icon == 'attention'" src="assets/images/announcements/attention.jpg">
+                <img mat-card-lg-image *ngIf="announce.icon == 'announce'" src="assets/images/announcements/announce.jpg">
             </mat-card-title-group>
             <mat-card-content>
                 {{announce.message}}
