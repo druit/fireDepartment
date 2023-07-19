@@ -26,11 +26,12 @@ export class AnnounceButtonComponent implements OnInit {
         })
         break;
       case 'delete':
-      // this.dialogService.openDeletetDateDialog(this.data).subscribe(resp => {
-      //   if(resp) resp.type = type;
-      //   this._bottomSheetRef.dismiss(resp);
-      // })
-      // break;
+      this.dialogService.openDeleteAnnounce(this.data).subscribe(resp => {
+        console.log(resp)
+        if(resp) resp.type = type;
+        this._bottomSheetRef.dismiss(resp);
+      })
+      break;
       default:
         break;
     }

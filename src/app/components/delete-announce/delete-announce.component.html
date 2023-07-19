@@ -1,0 +1,21 @@
+<div class="text-center ">
+    <h1 class="mb-4">{{'delete_schedule' | translate}}</h1>
+
+    <div class="list-service">
+        <mat-selection-list #listSelected [(ngModel)]="selectedOptions" (ngModelChange)="onNgModelChange($event)">
+            <div mat-subheader>Αναρτήσεις</div>
+            <mat-list-option *ngFor="let obj of list" [value]="obj">
+                <mat-icon mat-list-icon>announcement</mat-icon>
+                <div mat-line>{{obj.date | date: 'dd/MM/yyyy'}} </div>
+                <div mat-line>{{obj.title}} </div>
+                <div mat-line>{{obj.message}} </div>
+            </mat-list-option>
+            <div *ngIf="list.length == 0">Δεν υπάρχουν αναρτήσεις.</div>
+        </mat-selection-list>
+    </div>
+
+    <div>
+        <button class="btn-service btn-cancel-service" (click)="cancel()">{{'gen_back'| translate}}</button>
+        <button class="btn-service btn-send-service" type="submit" (click)="delete()">{{'gen_delete'| translate}}</button>
+    </div>
+</div>

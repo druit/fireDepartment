@@ -71,6 +71,7 @@ import { CreateAnnounceComponent } from './components/create-announce/create-ann
 import { AnnounceButtonComponent } from './components/announce-button/announce-button.component';
 import { DeclareServiceLimitsComponent } from './components/declare-service-limits/declare-service-limits.component';
 import { TableComponent } from './routes/table/table.component';
+import { DeleteAnnounceComponent } from './components/delete-announce/delete-announce.component';
 
 @NgModule({
   declarations: [
@@ -89,7 +90,8 @@ import { TableComponent } from './routes/table/table.component';
     CreateAnnounceComponent,
     AnnounceButtonComponent,
     DeclareServiceLimitsComponent,
-    TableComponent
+    TableComponent,
+    DeleteAnnounceComponent
   ],
   imports: [
     BrowserModule,
