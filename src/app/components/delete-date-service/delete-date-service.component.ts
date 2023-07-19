@@ -39,7 +39,7 @@ export class DeleteDateServiceComponent implements OnInit {
         }
       });
     });
-    return list;
+    return list.reverse();
   }
 
   getAllUserServices(data: any):any {
@@ -49,7 +49,7 @@ export class DeleteDateServiceComponent implements OnInit {
           list.push(date);
       });
     });
-    return list;
+    return list.reverse();
   }
 
   cancel(): void {

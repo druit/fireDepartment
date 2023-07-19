@@ -94,10 +94,12 @@ export class CalendarComponent implements OnInit {
   events: CalendarEvent[] = [ ];
 
   activeDayIsOpen: boolean = false;
+  user: any;
 
   constructor(private modal: NgbModal, private dialogService: DialogService, private _bottomSheet: MatBottomSheet, private firebaseService: FirebaseService, private scheduleService: ScheduleService,private _snackBar: MatSnackBar) { }
   
   ngOnInit(): void {
+   
     this.scheduleService.getAllSchedule().snapshotChanges().pipe(
       map(changes =>
         changes.map(c =>
@@ -110,8 +112,8 @@ export class CalendarComponent implements OnInit {
       this.fullData = data;
       data.forEach((dataByDate: any) => {
         dataByDate.data.forEach((person: any) => {
-          this.createServiceForFireDepartment(person);
-          
+          this.user = this.firebaseService.getUserLogIn();
+          this.createServiceForFireDepartment(person); 
         });
       });
     });
@@ -128,7 +130,7 @@ export class CalendarComponent implements OnInit {
     const bottomSheetRef = this._bottomSheet.open(PlusButtonComponent, { data: this.fullData })
     bottomSheetRef.afterDismissed().subscribe((resp) => {
       if (resp && resp.type == 'add')
-        this.addNewService(resp, this.firebaseService.getUserLogIn());
+        this.addNewService(resp, this.user);
       else if (resp && resp.type == 'delete')
         this.deleteService(resp);
       else if (resp && resp.type == 'number')

@@ -26,7 +26,6 @@
                         "outputPath": "dist/fire-department",
                         "index": "src/index.html",
                         "main": "src/main.ts",
-                        "baseHref": "/~karanik/fire-department/",
                         "polyfills": "src/polyfills.ts",
                         "tsConfig": "tsconfig.app.json",
                         "inlineStyleLanguage": "less",

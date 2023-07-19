@@ -1,10 +1,16 @@
 {
   "hosting": {
-    "public": "out",
+    "public": "dist/fire-department",
     "ignore": [
       "firebase.json",
       "**/.*",
       "**/node_modules/**"
+    ],
+    "rewrites": [
+      {
+        "source": "**",
+        "destination": "/index.html"
+      }
     ]
   }
 }
