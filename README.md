@@ -1,6 +1,8 @@
 # fireDepartment
 A program where security forces ( in Greece ) (in this case, volunteers) can manage the services and people available
 
+[![Deploy to Firebase Hosting on merge](https://github.com/druit/fireDepartment/actions/workflows/firebase-hosting-merge.yml/badge.svg?branch=production)](https://github.com/druit/fireDepartment/actions/workflows/firebase-hosting-merge.yml)
+
 ## Usage Links
 
 * [Convert Angular App to Native Mobile App] -> https://betterprogramming.pub/how-to-convert-your-angular-application-to-a-native-mobile-app-android-and-ios-c212b38976df
