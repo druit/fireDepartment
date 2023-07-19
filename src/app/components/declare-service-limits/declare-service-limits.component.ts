@@ -18,7 +18,6 @@ export class DeclareServiceLimitsComponent implements OnInit {
 
   ngOnInit(): void {
     this.scheduleService.getDecrationServiceLimits().then((resp: any) => {
-      console.log(resp);
       if (resp) {
         this.value = resp[0].service;
       }
