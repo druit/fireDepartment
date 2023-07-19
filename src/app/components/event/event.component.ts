@@ -42,7 +42,6 @@ export class EventComponent implements OnInit {
       }
     
     volunteers.forEach((person: any) => {
-      console.log(person);
       if(person.service[0]['A']){
         this.A.push(true)
       }
