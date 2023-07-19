@@ -17,6 +17,7 @@ export class EventComponent implements OnInit {
   A = new Array();
   B = new Array();
   G = new Array();
+  type: number = 0;
   ngOnInit(): void {
     this.limits = this.scheduleService.getServiceLimits();
     this.createTable(this.events.data);
@@ -32,13 +33,16 @@ export class EventComponent implements OnInit {
       volunteers.forEach((volunteer: any, i : number) => {
         this.services.push(volunteer);
       });
+      this.type = 1;
     // If user
     }else{
+      this.type = 0;
       for (let index = 0; index < this.limits; index++) {
         this.services.push({ name: index+1 , service: new Array({A: false, B: false, G: false}) })
       }
     
     volunteers.forEach((person: any) => {
+      console.log(person);
       if(person.service[0]['A']){
         this.A.push(true)
       }

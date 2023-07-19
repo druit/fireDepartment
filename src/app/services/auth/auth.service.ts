@@ -31,6 +31,7 @@ export class AuthService {
   register(email: string, password: string) {
     this.fireAuth.createUserWithEmailAndPassword(email, password).then(() => {
       alert('Registration Successful');
+      this.login(email,password);
       this.router.navigate(['/login']);
     }, err => {
       alert(err.message);

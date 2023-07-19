@@ -31,7 +31,7 @@ export class DialogService {
     const dialogRef = this.dialog.open(SelectDateServiceComponent, {
       maxWidth: "100vw",
       width: "100vw",
-      height: "50vh",
+      height: "90vh",
       panelClass:"select-service",
       autoFocus: false,
       data: data
@@ -44,7 +44,7 @@ export class DialogService {
     const dialogRef = this.dialog.open(DeleteDateServiceComponent, {
       maxWidth: "100vw",
       width: "100vw",
-      height: "50vh",
+      height: "90vh",
       panelClass:"select-service",
       autoFocus: false,
       data: data
