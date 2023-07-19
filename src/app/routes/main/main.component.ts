@@ -64,8 +64,9 @@ export class MainComponent implements OnInit {
 
       if (resp && resp.type == 'add')
         this.announcementService.createAnnounce(resp.data);
-      // else if (resp && resp.type == 'delete')
-      //   this.deleteService(resp);
+      else if (resp && resp.type == 'delete')
+        console.log(resp);
+        // this.announcementService.deleteAnnounce(resp);
     });
 
   }

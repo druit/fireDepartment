@@ -37,7 +37,7 @@ export class AnnouncementService {
     });
   }
 
-  // deleteSchedule(key: number, schedule: any) {
+  // deleteAnnounce(key: number, schedule: any) {
   //   const tutRef = this.db.object(this.dbPath + '/');
   //   tutRef.set(schedule);
   // }
