@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { BehaviorSubject, Observable } from 'rxjs';
 
@@ -10,7 +11,7 @@ export class AuthService {
 
   public loggedInStatus = new BehaviorSubject<boolean>(false);
 
-  constructor(public fireAuth: AngularFireAuth, private router: Router) { }
+  constructor(public fireAuth: AngularFireAuth, private router: Router, private _snackBar: MatSnackBar) { }
 
   login(email: string, password: string) {
     this.fireAuth.signInWithEmailAndPassword(email, password).then((resp) => {
@@ -23,18 +24,18 @@ export class AuthService {
       this.loggedInStatus.next(true);
       this.router.navigate(['dashboard']);
     }, err => {
-      alert(err.message);
+      this._snackBar.open('Tα στοιχεία που πληκτρολογήσατε είναι λάθος', 'ΟΚ');
       this.router.navigate(['/login']);
-    });
+    })
   }
 
   register(email: string, password: string) {
     this.fireAuth.createUserWithEmailAndPassword(email, password).then(() => {
-      alert('Registration Successful');
+      this._snackBar.open('Εγγραφήκατε με επιτυχία!', 'ΟΚ');
       this.login(email,password);
       this.router.navigate(['/login']);
     }, err => {
-      alert(err.message);
+      this._snackBar.open(err.message, 'ΟΚ');
       this.router.navigate(['/register'])
     })
   }
@@ -50,7 +51,7 @@ export class AuthService {
       }, 200);
       
     }, err => {
-      alert(err.message); 
+      this._snackBar.open(err.message, 'ΟΚ');
     })
   }
 

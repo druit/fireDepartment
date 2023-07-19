@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { map } from 'rxjs';
 import { RegisterUser } from 'src/app/interfaces/register-user';
 import { AuthService } from 'src/app/services/auth/auth.service';
@@ -15,7 +16,7 @@ export class LoginComponent implements OnInit {
   email: string = '';
   password: string = '';
 
-  constructor(private auth: AuthService, private fireService: FirebaseService, private encryptService: EncrDecrService) { }
+  constructor(private auth: AuthService, private fireService: FirebaseService, private encryptService: EncrDecrService, private _snackBar: MatSnackBar) { }
 
   ngOnInit(): void {
     this.auth.getAuth();
@@ -23,12 +24,12 @@ export class LoginComponent implements OnInit {
 
   login(): void {
     if (this.email == '') {
-      alert('Please enter email');
+      this._snackBar.open('Πληκτρολογήστε τον Α.Δ.Τ.Ε.', 'ΟΚ');
       return;
     };
 
     if (this.password == '') {
-      alert('Please enter password');
+      this._snackBar.open('Πληκτρολογήστε τον κωδικό.', 'ΟΚ');
       return;
     }
     // new login
@@ -39,23 +40,18 @@ export class LoginComponent implements OnInit {
         )
       )
     ).subscribe(data => {
+      let thereIs = false;
       data.forEach((user: RegisterUser) => {
-        
         if (user.username == this.email) {
           var encrypted_pass = this.encryptService.set("123456$#@$^@1ERF", this.password);
           var decrypted_pass = this.encryptService.get("123456$#@$^@1ERF", encrypted_pass);
-          // console.log(user)
-          // console.log(decrypted_pass)
+          thereIs = true;
           if (user.email)
-            this.auth.login(user.email, decrypted_pass);
-          
+            this.auth.login(user.email, decrypted_pass); 
         }
-     });
+      });
+      
+      if(thereIs == false) this._snackBar.open('O Α.Δ.Τ.Ε που πληκτρολογήσατε δεν υπάρχει.', 'ΟΚ');
     });
-
-    // OLD login
-    // this.auth.login(this.email, this.password);
-
-    // this.email = this.password = '';
   }
 }

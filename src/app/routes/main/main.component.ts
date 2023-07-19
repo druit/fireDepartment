@@ -43,10 +43,6 @@ export class MainComponent implements OnInit {
       level: 0
     }
     this.fireService.createUser(this.user);
-    // this.tutorialService.create(this.tutorial).then(() => {
-    //  
-    //   this.submitted = true;
-    // });
   }
   newTutorial(): void {
     this.submitted = false;
