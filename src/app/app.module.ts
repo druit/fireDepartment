@@ -22,7 +22,7 @@ import { ProfileComponent } from './components/profile/profile.component';
 import { NavBarComponent } from './components/nav-bar/nav-bar.component';
 // material icons
 import { MatIconModule } from '@angular/material/icon';
-import { FirstLoginComponent } from './components/first-login/first-login.component';
+import { ResetPasswordComponent } from './components/reset-password/reset-password.component';
 // material forms
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
@@ -72,6 +72,7 @@ import { AnnounceButtonComponent } from './components/announce-button/announce-b
 import { DeclareServiceLimitsComponent } from './components/declare-service-limits/declare-service-limits.component';
 import { TableComponent } from './routes/table/table.component';
 import { DeleteAnnounceComponent } from './components/delete-announce/delete-announce.component';
+import { ForgotPasswordComponent } from './components/forgot-password/forgot-password.component';
 
 @NgModule({
   declarations: [
@@ -81,7 +82,7 @@ import { DeleteAnnounceComponent } from './components/delete-announce/delete-ann
     RegisterComponent,
     ProfileComponent,
     NavBarComponent,
-    FirstLoginComponent,
+    ResetPasswordComponent,
     CalendarComponent,
     EventComponent,
     PlusButtonComponent,
@@ -91,7 +92,8 @@ import { DeleteAnnounceComponent } from './components/delete-announce/delete-ann
     AnnounceButtonComponent,
     DeclareServiceLimitsComponent,
     TableComponent,
-    DeleteAnnounceComponent
+    DeleteAnnounceComponent,
+    ForgotPasswordComponent
   ],
   imports: [
     BrowserModule,

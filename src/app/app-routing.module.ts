@@ -8,6 +8,8 @@ import { RegisterComponent } from './routes/register/register.component';
 import { TableComponent } from './routes/table/table.component';
 import { AuthGuard as Guard } from './services/auth/guard/auth/auth.guard';
 import { RoleGuard as Role } from './services/auth/guard/role/role.guard';
+import { ResetPasswordComponent } from './components/reset-password/reset-password.component';
+import { ForgotPasswordComponent } from './components/forgot-password/forgot-password.component';
 
 const routes: Routes = [
   { path: 'dashboard', component: MainComponent, canActivate: [Guard] },
@@ -16,7 +18,9 @@ const routes: Routes = [
   { path: '', redirectTo:'login', pathMatch:'full' },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
-  { path: 'profile', component: ProfileComponent, canActivate: [Guard]},
+  { path: 'profile', component: ProfileComponent, canActivate: [Guard] },
+  { path: 'reset-password', component: ResetPasswordComponent },
+  { path: 'forgot-password', component: ForgotPasswordComponent},
   { path: '**', redirectTo: '' }
 ];
 

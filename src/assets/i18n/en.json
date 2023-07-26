@@ -6,6 +6,7 @@
     "gen_fullname": "Όν/επώνυμο",
     "gen_fire_department_ID": "Α.Δ.Τ.Ε",
     "gen_password": "Κωδικός Πρόσβασης",
+    "gen_confirm_password": "Επιβεβαίωση Κωδικού πρόσβασης",
     "gen_mobile": "Κινητό",
     "gen_mail": "Email",
     "gen_level": "Βαθμός",
@@ -49,5 +50,7 @@
     "gen_submit_announce": "Share",
     "set_number_service": "Service declaration limit",
     "declare_limit": "Declaration",
-    "gen_search": "Search"
+    "gen_search": "Search",
+    "gen_reset_password": "Reset Password",
+    "gen_reset": "Reset"
 }

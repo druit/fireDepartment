@@ -2,7 +2,10 @@ import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { FirebaseError } from 'firebase/app';
+import { BehaviorSubject, Observable, map } from 'rxjs';
+import { EncrDecrService } from '../EncrDecrService/encr-decr-service.service';
+import { FirebaseService } from '../firebase/firebase.service';
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +14,7 @@ export class AuthService {
 
   public loggedInStatus = new BehaviorSubject<boolean>(false);
 
-  constructor(public fireAuth: AngularFireAuth, private router: Router, private _snackBar: MatSnackBar) { }
+  constructor(public fireAuth: AngularFireAuth, private router: Router, private _snackBar: MatSnackBar, private encryptService: EncrDecrService, private realDataBase: FirebaseService) { }
 
   login(email: string, password: string) {
     this.fireAuth.signInWithEmailAndPassword(email, password).then((resp) => {
@@ -52,6 +55,32 @@ export class AuthService {
       
     }, err => {
       this._snackBar.open(err.message, 'ΟΚ');
+    })
+  }
+
+  resetPassword(code: any, password: string, id: string): void {
+   
+    this.fireAuth.confirmPasswordReset(code, password)
+      .then((resp) => {
+        this.realDataBase.getAllUsers().snapshotChanges().pipe(
+          map(changes =>
+            changes.map(c =>
+              ({ key: c.payload.key, ...c.payload.val() })
+            )
+          )
+        ).subscribe(data => {
+          data.forEach((user: any) => {
+            if (user.username == id) {
+              user['passwowrd'] = this.encryptService.set("123456$#@$^@1ERF", password);
+              this.realDataBase.createUser(user);
+            }
+          });
+        })
+        this.router.navigate(['/login']);
+      })
+      .catch(err => {
+        const errorMessage = err.code;
+        console.log(errorMessage)
     })
   }
 
