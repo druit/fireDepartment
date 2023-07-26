@@ -27,7 +27,6 @@ export class AnnounceButtonComponent implements OnInit {
         break;
       case 'delete':
       this.dialogService.openDeleteAnnounce(this.data).subscribe(resp => {
-        console.log(resp)
         if(resp) resp.type = type;
         this._bottomSheetRef.dismiss(resp);
       })

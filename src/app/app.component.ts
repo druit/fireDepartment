@@ -13,10 +13,7 @@ import { FirebaseService } from './services/firebase/firebase.service';
 export class AppComponent {
   isLoggedIn$?: Observable<boolean>;
   user!: RegisterUser;
-  constructor(private translate: TranslateService,private authService: AuthService, private fireService: FirebaseService) {
-    translate.setDefaultLang('el');
-    translate.use('el');
-  }
+  constructor(private authService: AuthService, private fireService: FirebaseService) { }
 
   ngOnInit(): void { 
     this.isLoggedIn$ = this.authService.isLoggedIn();
@@ -32,6 +29,7 @@ export class AppComponent {
         });
         this.authService.getProfileAuth().then((resp: any) => {
           this.fireService.setUserLogIn(resp).then(user => {
+            console.timeLog(resp);
             this.user = user;
           });
         })

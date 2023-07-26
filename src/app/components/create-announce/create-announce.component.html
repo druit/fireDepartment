@@ -4,11 +4,11 @@
 <div class="text-center mt-4 ">
     <h2 class="announce-title">{{'create_announce'| translate}}</h2>
 </div>
-<div class="mt-4">
+<div class="mt-4 container-fluid date-title">
     {{'gen_date' | translate}} <span style="font-style:italic;"> {{date | date: 'dd/MM/yyyy, HH:mm'}}</span>
 </div>
 
-<form class="example-form mt-2" [formGroup]="formAnnounce">
+<form class="example-form mt-2 container-fluid" [formGroup]="formAnnounce">
     <mat-form-field class="example-full-width" appearance="legacy">
         <mat-label>{{'gen_title_announcement' | translate}}</mat-label>
         <input matInput placeholder="{{'gen_placeholder_announcement' | translate}}" value="" autocomplete="off" formControlName="title">

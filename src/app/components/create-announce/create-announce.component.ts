@@ -19,7 +19,8 @@ export class CreateAnnounceComponent implements OnInit {
     title: new FormControl('',[Validators.required]),
     message: new FormControl('',[Validators.required]),
     icon: new FormControl('', [Validators.required]),
-    date: new FormControl(this.date.getTime())
+    date: new FormControl(this.date.getTime()),
+    id: new FormControl(this.makeUniqueId(15))
   })
   types: {value:string, type:string}[] = [
     { value: 'gen_announce', type: 'announce' },
@@ -36,5 +37,18 @@ export class CreateAnnounceComponent implements OnInit {
     this.dialogData.unshift(this.formAnnounce.value)
     this.dialogRef.close({ data: this.dialogData });
   }
+
+  makeUniqueId(length: number): string {
+    let result = '';
+    const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    const charactersLength = characters.length;
+    let counter = 0;
+    while (counter < length) {
+      result += characters.charAt(Math.floor(Math.random() * charactersLength));
+      counter += 1;
+    }
+    return result;
+}
+
 
 }

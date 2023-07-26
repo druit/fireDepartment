@@ -57,7 +57,6 @@ export class AuthService {
 
   getAuth(): void {
     if (localStorage.getItem('token')) {
-      
       this.fireAuth.authState.subscribe((resp) => {
         this.loggedInStatus.next(true);
         setTimeout(() => {

@@ -6,16 +6,17 @@ import { LoginComponent } from './routes/login/login.component';
 import { MainComponent } from './routes/main/main.component';
 import { RegisterComponent } from './routes/register/register.component';
 import { TableComponent } from './routes/table/table.component';
-import { AuthGuard } from './services/auth/guard/auth';
+import { AuthGuard as Guard } from './services/auth/guard/auth/auth.guard';
+import { RoleGuard as Role } from './services/auth/guard/role/role.guard';
 
 const routes: Routes = [
-  { path: 'dashboard', component: MainComponent, canActivate: [AuthGuard] },
-  { path: 'calendar', component: CalendarComponent,canActivate: [AuthGuard] },
-  { path: 'table', component: TableComponent, canActivate: [AuthGuard] },
+  { path: 'dashboard', component: MainComponent, canActivate: [Guard] },
+  { path: 'calendar', component: CalendarComponent,canActivate: [Guard] },
+  { path: 'table', component: TableComponent, canActivate: [Role] , data: { expectedRole: 1 } },
   { path: '', redirectTo:'login', pathMatch:'full' },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
-  { path: 'profile', component: ProfileComponent,canActivate: [AuthGuard] },
+  { path: 'profile', component: ProfileComponent, canActivate: [Guard]},
   { path: '**', redirectTo: '' }
 ];
 
