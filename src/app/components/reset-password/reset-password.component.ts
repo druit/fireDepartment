@@ -16,6 +16,9 @@ export class ResetPasswordComponent implements OnInit {
 
   constructor(private _formBuilder: FormBuilder, private route: ActivatedRoute, private authService: AuthService, private _snackBar: MatSnackBar) { }
 
+  hide = true;
+  hide2 = true;
+
   secondFormGroup = this._formBuilder.group({
     username: ['', [Validators.required]],
     password: ['', [Validators.required]],

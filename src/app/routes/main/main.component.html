@@ -11,7 +11,7 @@
     <h2 class="text-center mt-4">Ανακοινώσεις</h2>
 </div>
 <div class="text-center mt-2">
-    <p *ngIf="!announcements.length || !announcements">Δεν υπάρχουν ανακοινώσεις.</p>
+    <p *ngIf="announcements && announcements.length == 0 || !announcements">Δεν υπάρχουν ανακοινώσεις.</p>
     <p *ngIf="announcements" class="announce-place-card">
         <mat-card class="example-card mb-2" *ngFor="let announce of announcements">
             <mat-card-title-group>

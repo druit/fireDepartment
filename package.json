@@ -1,10 +1,11 @@
 {
     "name": "fire-department",
-    "version": "0.0.0",
+    "version": "1.0.2",
     "scripts": {
         "ng": "ng",
         "start": "ng serve",
         "build": "ng build",
+        "prebuild": "npm --no-git-tag-version version patch",
         "watch": "ng build --watch --configuration development",
         "test": "ng test"
     },
