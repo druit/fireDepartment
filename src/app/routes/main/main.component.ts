@@ -32,22 +32,22 @@ export class MainComponent implements OnInit {
   firebaseService: any;
   constructor(private scheduleService: ScheduleService,private fireService: FirebaseService,private announcementService: AnnouncementService, private auth: AuthService, private encryptService: EncrDecrService, private _bottomSheet: MatBottomSheet) { }
 
-  saveTutorial(): void {
-    this.user = {
-      key: '02B126',
-      uuid: 'uiyas12kjbwu24',
-      fullname: 'Karanikolas Nikolaos',
-      email: 'nikolakis95@hotmail.com',
-      username: '02B126',
-      passwowrd:  this.encryptService.set('123456$#@$^@1ERF', 'pass'),
-      level: 0
-    }
-    this.fireService.createUser(this.user);
-  }
-  newTutorial(): void {
-    this.submitted = false;
-    this.tutorial = new Customer();
-  }
+  // saveTutorial(): void {
+  //   this.user = {
+  //     key: '02B126',
+  //     uuid: 'uiyas12kjbwu24',
+  //     fullname: 'Karanikolas Nikolaos',
+  //     email: 'nikolakis95@hotmail.com',
+  //     username: '02B126',
+  //     passwowrd:  this.encryptService.set('123456$#@$^@1ERF', 'pass'),
+  //     level: 0
+  //   }
+  //   this.fireService.createUser(this.user);
+  // }
+  // newTutorial(): void {
+  //   this.submitted = false;
+  //   this.tutorial = new Customer();
+  // }
   ngOnInit(): void { 
     this.scheduleService.setServiceLimits();
     this.announcementService.getAnnouncements().then((data: any) => {
@@ -64,9 +64,11 @@ export class MainComponent implements OnInit {
 
       if (resp && resp.type == 'add')
         this.announcementService.createAnnounce(resp.data);
-      else if (resp && resp.type == 'delete')
-        console.log(resp);
-        // this.announcementService.deleteAnnounce(resp);
+      else if (resp && resp.type == 'delete') {
+        this.announcements = resp.data;
+        this.announcementService.deleteAnnounce(resp.data);
+      }
+      
     });
 
   }

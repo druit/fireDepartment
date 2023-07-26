@@ -121,12 +121,13 @@ import { DeleteAnnounceComponent } from './components/delete-announce/delete-ann
     BrowserAnimationsModule,
      // ngx-translate and the loader module
      HttpClientModule,
-     TranslateModule.forRoot({
-         loader: {
-             provide: TranslateLoader,
-             useFactory: HttpLoaderFactory,
-             deps: [HttpClient]
-         }
+    TranslateModule.forRoot({
+      defaultLanguage: 'el',
+      loader: {
+        provide: TranslateLoader,
+        useFactory: HttpLoaderFactory,
+        deps: [HttpClient]
+      }
      }),
      CalendarModule.forRoot({
       provide: DateAdapter,

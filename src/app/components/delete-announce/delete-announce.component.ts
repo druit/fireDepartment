@@ -23,11 +23,11 @@ export class DeleteAnnounceComponent implements OnInit {
 
   ngOnInit(): void {
     this.announceService.getAnnouncements().then((resp: any) =>{
-      console.log(resp)
       this.list = resp.map((obj: any) => {
         return obj.data;
       });
     });
+
   }
 
   onNgModelChange($event: any){
@@ -39,8 +39,13 @@ export class DeleteAnnounceComponent implements OnInit {
   }
 
   delete(): void {
-    this.dialogRef.close(this.selectedOption)
-    this.dialogRef.close({ data: this.selectedOption });
+    let announcements = this.list;
+    this.selectedOption.forEach((option: any) => {
+      announcements = announcements.filter((data: any) => {
+        return data.id != option.id;
+      })
+    });
+    this.dialogRef.close({ data: announcements });
   }
 
 }

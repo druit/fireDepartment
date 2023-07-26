@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AngularFireList, AngularFireDatabase } from '@angular/fire/compat/database';
-import { map } from 'rxjs';
+import { BehaviorSubject, map } from 'rxjs';
 import { Customer } from 'src/app/interfaces/customer';
 import { RegisterUser } from 'src/app/interfaces/register-user';
 
@@ -10,6 +10,7 @@ import { RegisterUser } from 'src/app/interfaces/register-user';
 export class FirebaseService {
 
   user!: any;
+  public userType = new BehaviorSubject<number>(0);
 
   private dbPath = '/users';
   firebaseRef: AngularFireList<Customer>;
@@ -53,6 +54,8 @@ export class FirebaseService {
       ).subscribe(data => {
         data.forEach((user: RegisterUser) => {
           if (user.email == userLog?.email) {
+            if(user.type)
+              this.userType.next(user.type);
             this.user = {
               id_card: user.username,
               firstname: user.firstname,
