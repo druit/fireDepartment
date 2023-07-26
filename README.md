@@ -13,6 +13,10 @@ A program where security forces ( in Greece ) (in this case, volunteers) can man
 
 * [Building an app with Angular & Firebase] -> https://blog.jscrambler.com/building-an-app-with-angular-firebase
 
+
+## Versioning
+- npm run build firstly for change version
+
 ## CMD usage
 - Add native iOS and Android packages
 ```
