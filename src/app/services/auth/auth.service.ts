@@ -2,10 +2,10 @@ import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
-import { FirebaseError } from 'firebase/app';
 import { BehaviorSubject, Observable, map } from 'rxjs';
 import { EncrDecrService } from '../EncrDecrService/encr-decr-service.service';
 import { FirebaseService } from '../firebase/firebase.service';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -121,6 +121,18 @@ export class AuthService {
         res(resp?.toJSON());
       })
     }) 
+  }
+
+  checkVersioning(): void {
+    const ver = localStorage.getItem('version');
+    if (ver) {
+      if (ver != environment.appVersion) {
+        localStorage.clear();
+        localStorage.setItem('version', environment.appVersion);
+      }
+    } else {
+      localStorage.setItem('version', environment.appVersion);
+    }
   }
 
 

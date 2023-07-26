@@ -16,6 +16,7 @@ export class AppComponent {
   constructor(private authService: AuthService, private fireService: FirebaseService) { }
 
   ngOnInit(): void { 
+    this.authService.checkVersioning();
     this.isLoggedIn$ = this.authService.isLoggedIn();
     this.isLoggedIn$.subscribe(resp => {
       if (resp) {
