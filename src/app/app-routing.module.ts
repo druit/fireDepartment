@@ -6,15 +6,17 @@ import { LoginComponent } from './routes/login/login.component';
 import { MainComponent } from './routes/main/main.component';
 import { RegisterComponent } from './routes/register/register.component';
 import { TableComponent } from './routes/table/table.component';
+import { AuthGuard } from './services/auth/guard/auth';
 
 const routes: Routes = [
-  { path: 'dashboard', component: MainComponent },
-  { path: 'calendar', component: CalendarComponent },
-  { path: 'table', component: TableComponent },
+  { path: 'dashboard', component: MainComponent, canActivate: [AuthGuard] },
+  { path: 'calendar', component: CalendarComponent,canActivate: [AuthGuard] },
+  { path: 'table', component: TableComponent, canActivate: [AuthGuard] },
   { path: '', redirectTo:'login', pathMatch:'full' },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
-  { path: 'profile', component: ProfileComponent }
+  { path: 'profile', component: ProfileComponent,canActivate: [AuthGuard] },
+  { path: '**', redirectTo: '' }
 ];
 
 @NgModule({
