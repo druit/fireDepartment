@@ -2,6 +2,7 @@ import {Component, OnInit, ViewChild} from '@angular/core';
 import { MatBottomSheet } from '@angular/material/bottom-sheet';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatSort } from '@angular/material/sort';
 import {MatTableDataSource} from '@angular/material/table';
 import { PlusButtonComponent } from 'src/app/components/plus-button/plus-button.component';
 import { FirebaseService } from 'src/app/services/firebase/firebase.service';
@@ -15,16 +16,10 @@ export class TableComponent implements OnInit {
   displayedColumns: string[] = [ 'id','firstname', 'lastname', 'phone'];
   dataSource = new MatTableDataSource([]);
 
-  applyFilter(event: Event) {
-    const filterValue = (event.target as HTMLInputElement).value;
-    this.dataSource.filter = filterValue.trim().toLowerCase();
-  }
 
-  @ViewChild(MatPaginator) paginator!: MatPaginator;
 
-  ngAfterViewInit() {
-    this.dataSource.paginator = this.paginator;
-  }
+  @ViewChild(MatPaginator) paginator!: MatPaginator; 
+  @ViewChild(MatSort) sort!: MatSort;
 
   constructor(private fireService: FirebaseService,private _bottomSheet: MatBottomSheet, private _snackBar: MatSnackBar) { }
   users: any = new Array();
@@ -34,7 +29,18 @@ export class TableComponent implements OnInit {
         if (obj.user.type == 0)  this.users.push(obj.user)
       });
       this.dataSource = new MatTableDataSource(this.users);
+      this.dataSource.paginator = this.paginator;
+      this.dataSource.sort = this.sort;
     })
+  }
+
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+
+    if (this.dataSource.paginator) {
+      this.dataSource.paginator.firstPage();
+    }
   }
 
   openBottomSheet(): void {
