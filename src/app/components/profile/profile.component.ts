@@ -3,6 +3,7 @@ import { map } from 'rxjs';
 import { RegisterUser } from 'src/app/interfaces/register-user';
 import { AuthService } from 'src/app/services/auth/auth.service';
 import { FirebaseService } from 'src/app/services/firebase/firebase.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-profile',
@@ -11,8 +12,10 @@ import { FirebaseService } from 'src/app/services/firebase/firebase.service';
 })
 export class ProfileComponent implements OnInit {
   user: any;
+  version: number;
   constructor(private auth: AuthService, private fireService: FirebaseService) { 
-
+    this.version = environment.appVersion;
+    
     this.user = this.auth.fireAuth.authState.subscribe((user) => {
       this.user = {
         firstname: user?.displayName ? user?.displayName.split(',')[0] : '',
