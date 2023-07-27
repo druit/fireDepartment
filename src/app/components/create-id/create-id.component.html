@@ -1,0 +1,16 @@
+<div class="text-center mt-2">
+    <h1>{{'add_person'| translate}}</h1>
+</div>
+<div class="text-center mt-4">
+    <form [formGroup]="formGroup">
+        <mat-form-field appearance="fill" style="width: 80%;">
+            <mat-label>{{ 'gen_fire_department_ID' | translate}}</mat-label>
+            <input matInput placeholder="{{'gen_placeholder_announcement' | translate}}" formControlName="id" required>
+        </mat-form-field>
+    </form>
+</div>
+
+<div class="text-center mt-5">
+    <button class="btn-service btn-cancel-service" (click)="cancel()">{{'gen_back'| translate}}</button>
+    <button class="btn-service btn-send-service" type="submit" (click)="submit()">{{'gen_add'| translate}}</button>
+</div>

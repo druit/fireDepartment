@@ -1,8 +1,9 @@
 <!-- Admin -->
 <mat-nav-list *ngIf="user.type == 1">
+    <a mat-list-item *ngIf="location" (click)="openLink($event,'addPerson')"><span style="transform: translateY(3px)" class="m-2"><mat-icon>person_add</mat-icon></span>{{'add_person'| translate}}</a>
     <!-- <a mat-list-item (click)="openLink($event,'add')"><span style="transform: translateY(3px)" class="m-2"><mat-icon>note_add</mat-icon></span>{{'add_schedule'| translate}}</a> -->
-    <a mat-list-item (click)="openLink($event,'number')"><span style="transform: translateY(3px)" class="m-2"><mat-icon>assessmente</mat-icon></span>{{'set_number_service'| translate}}</a>
-    <a mat-list-item (click)="openLink($event,'delete')"><span style="transform: translateY(3px)" class="m-2"><mat-icon>delete_outline</mat-icon></span>{{'delete_schedule'| translate}}</a>
+    <a mat-list-item *ngIf="!location" (click)="openLink($event,'number')"><span style="transform: translateY(3px)" class="m-2"><mat-icon>assessmente</mat-icon></span>{{'set_number_service'| translate}}</a>
+    <a mat-list-item *ngIf="!location" (click)="openLink($event,'delete')"><span style="transform: translateY(3px)" class="m-2"><mat-icon>delete_outline</mat-icon></span>{{'delete_schedule'| translate}}</a>
 </mat-nav-list>
 <!-- User -->
 <mat-nav-list *ngIf="user.type == 0">

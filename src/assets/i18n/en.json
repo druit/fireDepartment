@@ -52,5 +52,7 @@
     "declare_limit": "Declaration",
     "gen_search": "Search",
     "gen_reset_password": "Reset Password",
-    "gen_reset": "Reset"
+    "gen_reset": "Reset",
+    "add_person": "Προσθήκη νέου αριθμού ταυτότητας",
+    "gen_add": "Add"
 }
