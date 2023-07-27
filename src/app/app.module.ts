@@ -73,6 +73,7 @@ import { DeclareServiceLimitsComponent } from './components/declare-service-limi
 import { TableComponent } from './routes/table/table.component';
 import { DeleteAnnounceComponent } from './components/delete-announce/delete-announce.component';
 import { ForgotPasswordComponent } from './components/forgot-password/forgot-password.component';
+import { CreateIDComponent } from './components/create-id/create-id.component';
 
 @NgModule({
   declarations: [
@@ -93,7 +94,8 @@ import { ForgotPasswordComponent } from './components/forgot-password/forgot-pas
     DeclareServiceLimitsComponent,
     TableComponent,
     DeleteAnnounceComponent,
-    ForgotPasswordComponent
+    ForgotPasswordComponent,
+    CreateIDComponent
   ],
   imports: [
     BrowserModule,

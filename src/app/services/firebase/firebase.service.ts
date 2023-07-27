@@ -1,3 +1,4 @@
+import { newArray } from '@angular/compiler/src/util';
 import { Injectable } from '@angular/core';
 import { AngularFireList, AngularFireDatabase } from '@angular/fire/compat/database';
 import { BehaviorSubject, map } from 'rxjs';
@@ -134,5 +135,30 @@ export class FirebaseService {
 
   getLvl(lvl: any): string {
     return "firefighter_lvl_"+lvl.toString();
+  }
+
+  async createID(id: string): Promise<boolean> {
+    return await new Promise(resolve => {
+      const db = this.db.list('IDs');
+      db.snapshotChanges().pipe(
+        map(changes => changes.map(c =>
+          ({ id: c.payload.val() })
+        )
+        )).subscribe(data => {
+          let find = false;
+          data.forEach(obj => {
+            if (obj.id == id) {
+              find = true;
+            }
+          });
+          if (find) {
+            // Show already in list
+            resolve(false);
+          } else {
+            db.set((data.length).toString(), id);
+            resolve(true)
+          }
+        })
+    });
   }
 }
