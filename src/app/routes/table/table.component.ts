@@ -45,10 +45,12 @@ export class TableComponent implements OnInit {
 
   openBottomSheet(): void {
     const bottomSheetRef = this._bottomSheet.open(PlusButtonComponent, { data: '' })
-    bottomSheetRef.afterDismissed().subscribe((id: string) => {
-      this.fireService.createID(id).then((resp: any) => {
-        this._snackBar.open(resp ? `Ο Α.Δ.Τ.Ε ${id} προστέθηκε επιτυχώς` : `Ο Α.Δ.Τ.Ε ${id} που πληκτρολογήσατε υπάρχει ήδη` , 'Κλείσιμο');
-      })
+    bottomSheetRef.afterDismissed().subscribe((id: any) => {
+      if (id) {
+        this.fireService.createID(id).then((resp: any) => {
+          this._snackBar.open(resp ? `Ο Α.Δ.Τ.Ε ${id} προστέθηκε επιτυχώς` : `Ο Α.Δ.Τ.Ε ${id} που πληκτρολογήσατε υπάρχει ήδη` , 'Κλείσιμο');
+        })
+      }
 
     });
 
