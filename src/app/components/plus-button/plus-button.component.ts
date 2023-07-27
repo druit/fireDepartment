@@ -45,7 +45,6 @@ export class PlusButtonComponent implements OnInit {
         break;
       case 'addPerson':
         this.dialogService.openCreateID().subscribe(resp => {
-          if (resp) 
           this._bottomSheetRef.dismiss(resp);
         })
         break;
