@@ -1,4 +1,5 @@
 <div class="profile-container">
+    <div class="version">Έκδοση: {{version}}</div>
     <div class="title">{{ 'gen_profile' | translate }}</div>
     <div class="profile-photo">
         <img *ngIf="!user?.photo" class="img-profile" src="assets/images/firefighter.png" alt="">
@@ -27,47 +28,38 @@
 
         </div>
         <div>
-
-        </div>
-        <!-- <div>
-        {{'gen_lastname' | translate}} <span>{{user.lastname}}</span>
-        </div> -->
-        <div>
-            <div class="row">
-                <div class="col-4 col-lg-5 col-xl-5 text-right">
-                    <mat-icon class="mat-icon-profile">mail_outline</mat-icon> : </div>
-                <div class="col">
-                    <div class="info-profile-space">{{user.email}}</div>
+            <div>
+                <div class="row">
+                    <div class="col-4 col-lg-5 col-xl-5 text-right">
+                        <mat-icon class="mat-icon-profile">mail_outline</mat-icon> : </div>
+                    <div class="col">
+                        <div class="info-profile-space">{{user.email}}</div>
+                    </div>
                 </div>
-            </div>
 
-        </div>
-        <div>
-            <div class="row">
-                <div class="col-4 col-lg-5 col-xl-5 text-right">
-                    <mat-icon class="mat-icon-profile">phone_android</mat-icon> : </div>
-                <div class="col">
-                    <div class="info-profile-space" *ngIf="user.number?.length > 1">+30 {{user.number}}</div>
-                    <div class="info-profile-space" *ngIf="user.number?.length < 5">-</div>
+            </div>
+            <div>
+                <div class="row">
+                    <div class="col-4 col-lg-5 col-xl-5 text-right">
+                        <mat-icon class="mat-icon-profile">phone_android</mat-icon> : </div>
+                    <div class="col">
+                        <div class="info-profile-space" *ngIf="user.number?.length > 1">+30 {{user.number}}</div>
+                        <div class="info-profile-space" *ngIf="user.number?.length < 5">-</div>
+                    </div>
                 </div>
-            </div>
 
+            </div>
+            <div>
+                <img class="img-lvl" style="height: 120px;" src="assets/images/levels/type-{{user.type}}.jpg" alt="">
+            </div>
         </div>
-        <div>
-            <!-- {{'gen_type' | translate}} <span>{{user.type}}</span> -->
-            <img class="img-lvl" style="height: 120px;" src="assets/images/levels/type-{{user.type}}.jpg" alt="">
-        </div>
-        <!-- <div>
-        {{'gen_level' | translate}} <span>{{user.level | translate}}</span>
-        </div>  <mat-icon>grade</mat-icon>-->
     </div>
-</div>
 
-<div class="button-field">
-    <button class="btn btn-primary" (click)="logout()">
+    <div class="button-field">
+        <button class="btn btn-primary" (click)="logout()">
         <div class="button-text">
             <mat-icon class="">exit_to_app</mat-icon>
             <div class="letter">{{'gen_logout' | translate}}</div>
         </div>  
     </button>
-</div>
+    </div>
