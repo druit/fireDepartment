@@ -112,10 +112,10 @@ export class CalendarComponent implements OnInit {
       this.fullData = data;
       data.forEach((dataByDate: any) => {
         dataByDate.data.forEach((person: any) => {
-          this.user = this.firebaseService.getUserLogIn();
           this.createServiceForFireDepartment(person); 
         });
       });
+      this.user = this.firebaseService.getUserLogIn();
     });
     
     // this.fullData.forEach((dataByDate: any) => {
@@ -127,6 +127,7 @@ export class CalendarComponent implements OnInit {
   } 
 
   openBottomSheet(): void {
+    if (!this.user) return;
     const bottomSheetRef = this._bottomSheet.open(PlusButtonComponent, { data: this.fullData })
     bottomSheetRef.afterDismissed().subscribe((resp) => {
       if (resp && resp.type == 'add')
