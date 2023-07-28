@@ -73,7 +73,7 @@
 }
 
 
-@media (max-height: 670px) {
+@media (max-height: 690px) {
   .fix-height {
     height: calc(100% + 100px);
   }
@@ -94,5 +94,30 @@
 @media (max-height: 370px) {
     .fix-height {
       height: calc(100% + 400px);
+    }
+}
+
+@media(max-width: 390px){
+    .profile-container{
+        padding: 25px 0 !important;
+    }
+}
+
+@media(max-width: 345px){
+    .row{
+        div{
+            font-size: 14px;
+        }
+    }
+}
+@media(max-width: 305px){
+    .row{
+       .info-profile-space{
+            text-overflow: ellipsis;
+            overflow: hidden; 
+            width: 160px; 
+            height: 1.2em; 
+            white-space: nowrap;
+       }
     }
 }
