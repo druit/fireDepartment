@@ -30,7 +30,7 @@ export class MainComponent implements OnInit {
   submitted = false;
   fullData: any;
   firebaseService: any;
-  constructor(private scheduleService: ScheduleService,private fireService: FirebaseService,private announcementService: AnnouncementService, private auth: AuthService, private encryptService: EncrDecrService, private _bottomSheet: MatBottomSheet) { }
+  constructor(private scheduleService: ScheduleService,private fireService: FirebaseService,private announcementService: AnnouncementService, private _bottomSheet: MatBottomSheet) { }
 
   // saveTutorial(): void {
   //   this.user = {
