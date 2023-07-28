@@ -298,6 +298,7 @@ export class CalendarComponent implements OnInit {
       i == 0 ? this.fullData[obj.key].data = new Array(obj.data) : this.fullData[obj.key].data.push(obj.data)
     });
     this.scheduleService.deleteSchedule(1, this.fullData);
+    this.deleteEvent(data);
   }
 
   setDeclareServiceLimits(data: any): void {
@@ -331,8 +332,21 @@ export class CalendarComponent implements OnInit {
     else return 'red';
   }
 
-  deleteEvent(eventToDelete: CalendarEvent) {
-    this.events = this.events.filter((event) => event !== eventToDelete);
+  deleteEvent(eventToDelete: any) {
+    let resp = new Array();
+    eventToDelete.forEach((item:any) => {
+      this.events.forEach((element: any) => {
+        if (element.title === item.name && new Date(item.service[0].date).getTime() === new Date(element.start).getTime()) {
+          resp.push(element);
+        }
+      });
+    });
+
+    resp.forEach(element => {
+      this.events = this.events.filter((event) => event !== element);
+    });
+    
+    this.refresh.next();
   }
 
   setView(view: CalendarView) {

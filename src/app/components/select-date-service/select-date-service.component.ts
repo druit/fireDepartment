@@ -34,11 +34,12 @@ export class SelectDateServiceComponent implements OnInit {
   }
 
   send(): void {
-    if (this.selectService.controls['A'].value || this.selectService.controls['B'].value || this.selectService.controls['G'].value && !(this.selectService.controls['picker'].value.length == 0)) {
-      this.dialogRef.close(this.selectService.value);
-    }else if(this.selectService.controls['picker'].value.length == 0){
+    if(this.selectService.controls['picker'].value.length == 0){
       this._snackBar.open("Πρέπει να επιλέξετε ημερομηνία", 'Κλείσιμο');
-    } else {
+    }
+    else if (this.selectService.controls['A'].value || this.selectService.controls['B'].value || this.selectService.controls['G'].value && !(this.selectService.controls['picker'].value.length == 0)) {
+      this.dialogRef.close(this.selectService.value);
+    }else {
       this._snackBar.open("Πρέπει να επιλέξετε βάρδια", 'Κλείσιμο');
     }
    
